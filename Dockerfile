@@ -11,7 +11,7 @@ RUN /usr/local/src/steamcmd/steamcmd.sh +login anonymous +force_install_dir /usr
 WORKDIR /usr/local/src/dst_server/bin/
 RUN mkdir -p /data
 ENV SERVER_TOKEN_FILE=
-ADD $SERVER_TOKEN_FILE /data
+ADD $SERVER_TOKEN_FILE /data/
 VOLUME ["/data"]
 ENTRYPOINT ["/usr/local/src/dst_server/bin/dontstarve_dedicated_server_nullrenderer"]
 EXPOSE 10999/udp
