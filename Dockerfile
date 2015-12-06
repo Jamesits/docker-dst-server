@@ -9,9 +9,9 @@ RUN tar -xvzf /tmp/steamcmd.tar.gz -C /usr/local/src/steamcmd
 RUN mkdir -p /usr/local/src/dst_server
 RUN /usr/local/src/steamcmd/steamcmd.sh +login anonymous +force_install_dir /usr/local/src/dst_server +app_update 343050 validate +quit
 WORKDIR /usr/local/src/dst_server/bin/
-RUN mkdir -p /data
+RUN mkdir -p /data/DoNotStarveTogether
 ENV SERVER_TOKEN_FILE=
-ADD $SERVER_TOKEN_FILE /data/
+ADD $SERVER_TOKEN_FILE /data/DoNotStarveTogether/server_token.txt
 VOLUME ["/data"]
 ENTRYPOINT ["/usr/local/src/dst_server/bin/dontstarve_dedicated_server_nullrenderer", "-persistent_storage_root", "/data"]
 EXPOSE 10999/udp
