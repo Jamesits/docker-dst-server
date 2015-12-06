@@ -13,5 +13,5 @@ RUN mkdir -p /data/DoNotStarveTogether
 ENV SERVER_TOKEN_FILE=
 ADD $SERVER_TOKEN_FILE /data/DoNotStarveTogether/server_token.txt
 VOLUME ["/data"]
-ENTRYPOINT ["/usr/local/src/dst_server/bin/dontstarve_dedicated_server_nullrenderer", "-persistent_storage_root", "/data"]
+ENTRYPOINT ["/usr/local/src/dst_server/bin/dontstarve_dedicated_server_nullrenderer", "-port", "10999", "-persistent_storage_root", "/data"]
 EXPOSE 10999/udp
