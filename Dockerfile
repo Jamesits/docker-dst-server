@@ -20,6 +20,7 @@ RUN mkdir -p /usr/local/src/dst_server \
 	&& mkdir -p /data
 
 COPY ./start_server.sh /data
+RUN chmod a+x /data/start_server.sh
 
 ENV DST_INSTALLATION_DIR=/usr/local/src/dst_server/ \
 	DST_DATA_DIR=/data \
