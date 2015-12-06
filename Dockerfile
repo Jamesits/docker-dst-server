@@ -5,7 +5,7 @@ RUN apt-get -y update
 RUN apt-get -y install lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 wget tar
 RUN mkdir -p /usr/local/src/steamcmd
 RUN wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz -O /tmp/steamcmd.tar.gz
-RUN tar -xvz -c/usr/local/src/steamcmd -f /tmp/steamcmd.tar.gz
+RUN tar -xvzf /tmp/steamcmd.tar.gz /usr/local/src/steamcmd
 RUN /usr/local/src/steamcmd/steamcmd.sh +login anonymous +app_update 343050 validate +quit
 RUN apt-get -y install tree
 RUN tree /usr/local/src/steamcmd/
