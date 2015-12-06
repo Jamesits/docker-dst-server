@@ -4,7 +4,7 @@ RUN dpkg --add-architecture i386
 RUN apt-get -y update
 RUN apt-get -y install lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 wget tar
 RUN useradd -m steam
-RUN chmod a+rw `tty`  # Note those are backticks, not single quotes
+RUN /usr/bin/env bash chmod a+rw `tty`
 RUN su - steam
 RUN mkdir ~/steamcmd
 RUN cd ~/steamcmd
