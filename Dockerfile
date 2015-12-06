@@ -1,8 +1,8 @@
 FROM debian:latest
 MAINTAINER James Swineson "jamesswineson@gmail.com"
 RUN dpkg --add-architecture i386
-RUN apt-get update
-RUN apt-get install lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 wget tar
+RUN apt-get -y update
+RUN apt-get -y install lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 wget tar
 RUN useradd -m steam
 RUN chmod a+rw `tty`  # Note those are backticks, not single quotes
 RUN su - steam
