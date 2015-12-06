@@ -9,7 +9,7 @@ RUN mkdir ~/steamcmd
 RUN cd ~/steamcmd
 RUN wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz
 RUN tar -xvzf steamcmd_linux.tar.gz
-RUN ./steamcmd.sh +login anonymous +force_install_dir /home/steam/dst_server +app_update 343050 validate +quit
-RUN cd /home/steam/dst_server/bin/
-CMD [ "/home/steam/dst_server/dontstarve_dedicated_server_nullrenderer" ]
+RUN ./steamcmd.sh +login anonymous +force_install_dir /home/dst_server +app_update 343050 validate +quit
+RUN cd /home/dst_server/bin/
+CMD [ "/home/dst_server/dontstarve_dedicated_server_nullrenderer" ]
 EXPOSE 10999/udp
