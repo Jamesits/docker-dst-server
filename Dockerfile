@@ -16,12 +16,15 @@ RUN mkdir -p /usr/local/src/steamcmd \
 	&& tar -xvzf /tmp/steamcmd.tar.gz -C /usr/local/src/steamcmd
 	
 RUN mkdir -p /usr/local/src/dst_server \
-	&& /usr/local/src/steamcmd/steamcmd.sh +login anonymous +force_install_dir /usr/local/src/dst_server +app_update 343050 validate +quit
+	&& /usr/local/src/steamcmd/steamcmd.sh +login anonymous +force_install_dir /usr/local/src/dst_server +app_update 343050 validate +quit \
+	&& mkdir -p /data
 
-RUN mkdir -p /data/DoNotStarveTogether
-ENV SERVER_TOKEN_FILE=
-ADD $SERVER_TOKEN_FILE /data/DoNotStarveTogether/server_token.txt
-VOLUME ["/data"]
-WORKDIR /usr/local/src/dst_server/bin/
-ENTRYPOINT ["/usr/local/src/dst_server/bin/dontstarve_dedicated_server_nullrenderer", "-port", "10999", "-persistent_storage_root", "/data"]
+COPY ./start_server.sh /data
+
+ENV DST_INSTALLATION_DIR=/usr/local/src/dst_server/ \
+	DST_DATA_DIR=/data \
+	DST_PORT=10999
+	
+ENTRYPOINT [ "/data/start_server.sh" ]
+CMD [ "dst_server" ]
 EXPOSE 10999/udp
