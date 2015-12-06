@@ -8,7 +8,7 @@ if [ "$1" = 'dst_server' ]; then
     fi
     
     cd $DST_INSTALLATION_DIR/bin
-    exec gosu ./dontstarve_dedicated_server_nullrenderer -port $PORT -persistent_storage_root $DST_DATA_DIR "$@"
+    exec ./dontstarve_dedicated_server_nullrenderer -port $PORT -persistent_storage_root $DST_DATA_DIR "$@"
 fi
 
 exec "$@"
