@@ -1,6 +1,11 @@
 FROM debian:latest
 MAINTAINER James Swineson "jamesswineson@gmail.com"
 
+ENV STEAMCMD_INSTALLATION_DIR=/usr/local/src/steamcmd \
+	DST_INSTALLATION_DIR=/usr/local/src/dst_server/ \
+	DST_DATA_DIR=/data \
+	DST_PORT=10999
+
 RUN dpkg --add-architecture i386 \
  	&&apt-get update -y && apt-get install -y \
 		lib32gcc1 \
@@ -11,21 +16,17 @@ RUN dpkg --add-architecture i386 \
  	&& apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
 	 
-RUN mkdir -p /usr/local/src/steamcmd \
+RUN mkdir -p $STEAMCMD_INSTALLATION_DIR \
 	&& wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz -O /tmp/steamcmd.tar.gz \
-	&& tar -xvzf /tmp/steamcmd.tar.gz -C /usr/local/src/steamcmd
+	&& tar -xvzf /tmp/steamcmd.tar.gz -C $STEAMCMD_INSTALLATION_DIR
 	
-RUN mkdir -p /usr/local/src/dst_server \
-	&& /usr/local/src/steamcmd/steamcmd.sh +login anonymous +force_install_dir /usr/local/src/dst_server +app_update 343050 validate +quit \
-	&& mkdir -p /data
+RUN mkdir -p $DST_INSTALLATION_DIR \
+	&& $STEAMCMD_INSTALLATION_DIR/steamcmd.sh +login anonymous +force_install_dir $DST_INSTALLATION_DIR +app_update 343050 validate +quit \
+	&& mkdir -p $DST_DATA_DIR/DoNotStarveTogether
 
 COPY ./docker-entrypoint.sh /data
-RUN chmod a+x /data/docker-entrypoint.sh
-
-ENV DST_INSTALLATION_DIR=/usr/local/src/dst_server/ \
-	DST_DATA_DIR=/data \
-	DST_PORT=10999
+RUN chmod a+x $DST_DATA_DIR/docker-entrypoint.sh
 	
-ENTRYPOINT [ "/data/docker-entrypoint.sh" ]
-CMD [ "dst_server" ]
+ENTRYPOINT [ "$DST_DATA_DIR/docker-entrypoint.sh" ]
+CMD [ "start" ]
 EXPOSE 10999/udp
