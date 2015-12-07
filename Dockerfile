@@ -24,7 +24,7 @@ RUN mkdir -p $DST_INSTALLATION_DIR \
 	&& $STEAMCMD_INSTALLATION_DIR/steamcmd.sh +login anonymous +force_install_dir $DST_INSTALLATION_DIR +app_update 343050 validate +quit \
 	&& mkdir -p $DST_DATA_DIR/DoNotStarveTogether
 
-COPY ./docker-entrypoint.sh /data
+COPY ./docker-entrypoint.sh /data/
 RUN chmod a+x $DST_DATA_DIR/docker-entrypoint.sh
 	
 ENTRYPOINT [ "$DST_DATA_DIR/docker-entrypoint.sh" ]
