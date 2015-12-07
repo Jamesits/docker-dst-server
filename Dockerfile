@@ -27,6 +27,6 @@ RUN mkdir -p $DST_INSTALLATION_DIR \
 COPY ./docker-entrypoint.sh $DST_DATA_DIR/docker-entrypoint.sh
 RUN chmod a+x $DST_DATA_DIR/docker-entrypoint.sh
 	
-ENTRYPOINT [ "$DST_DATA_DIR/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/data/docker-entrypoint.sh" ]
 CMD [ "start" ]
 EXPOSE 10999/udp
