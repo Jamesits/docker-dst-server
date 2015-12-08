@@ -14,7 +14,9 @@ server:
   volumes:
   - ./server_config:/data/DoNotStarveTogether
 ```
-Then use `docker-compose up` to bring up the server. 
+Then use `docker-compose up` to bring up the server.
+
+Sometimes the image may be out of date, use `docker-compose pull` to update automatically. 
 
 ## Manual Installation
 
@@ -51,4 +53,4 @@ This software is released under *GNU GENERAL PUBLIC LICENSE Version 2*.
 
  * [Guides/Don’t Starve Together Dedicated Servers](http://dont-starve-game.wikia.com/wiki/Guides/Don%E2%80%99t_Starve_Together_Dedicated_Servers)
  * [[GUIDE] How to setup server dedicated cave on Linux](http://forums.kleientertainment.com/topic/59563-guide-how-to-setup-server-dedicated-cave-on-linux/)
- 
+ * [Run dedicated server in Docker](http://forums.kleientertainment.com/topic/60329-run-dedicated-server-in-docker/) (This is written by me)
