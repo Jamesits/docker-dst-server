@@ -1,3 +1,4 @@
+# Version 0.0.3
 FROM debian:latest
 MAINTAINER James Swineson "jamesswineson@gmail.com"
 

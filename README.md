@@ -30,7 +30,6 @@ More Information please refer to [Docker Hub page](https://hub.docker.com/r/jame
 ## Entrypoint Script Arguments
 
  * `start`: the default `CMD` to start server
- * `update`: call SteamCMD to update server file, then tell server to update mods (Not fully tested)
 
 ## Instructions on Obtaining Server Token
 
