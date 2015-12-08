@@ -71,7 +71,7 @@ docker pull jamesits/don-t-starve-together-dedicated-server
 Chinese users may experience a faster download speed in this way. I can't promise it will be available in a long time. 
 
 ```shell
-docker pull daocloud.io/codevs/dst_server:master-init
+docker pull daocloud.io/codevs/dst_server
 ```
 
 Note: If you use Docker the VM way (i.e. running the image without `/data/DoNotStarveTogether` mounted to a volume or host), please be cautious:
