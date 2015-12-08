@@ -8,10 +8,27 @@ This is the Docker image for DST dedicated server, based on [`debian:latest`](ht
 
 It's been proved working on at least 2 servers with a customizes settings. There is currently no automated tests or CI. 
 
+Functions: 
+
+ * [x] Server up and running
+ * [x] `server_token.txt` settings
+ * [x] Data persistance
+ * [ ] Backup and restore
+ * [ ] Cave server
+ * [ ] Switch saved status
+ * [ ] Config via `ENV`
+ * [ ] Cross-platform test
+
 Tested environments: 
   
-  * An Antergos (based on Arch Linux) inside Hyper-V hypervisor in my dormitory. 
-  * An DaoCloud 8x server (1GB RAM). 
+  * [x] An Antergos (based on Arch Linux)
+    * System inside a Hyper-V Virtual Machine of Windows 8.1
+    * 8GB RAM
+    * running the `latest` tag of Docker Hub image, i.e. the most recent code from `master` of this Github repo
+  * [x] An DaoCloud server
+    * 1GB RAM
+    * running the most recent tagged code in this Github repo
+    * image built from DaoCloud custom mechanism
 
 ## Known Issues
 
@@ -23,7 +40,7 @@ Tested environments:
 
 ## Install Using Docker Compose
 
-It's the recommended way for newbies. 
+It's the recommended way for those who are not familiar with Docker. 
 
 Create a folder for storing DST server files, then put a `docker-compose.yml` inside it, paste the following content: 
 ```yaml
@@ -51,7 +68,7 @@ docker pull jamesits/don-t-starve-together-dedicated-server
 
 ### Install from DaoCloud
 
-Chinese users may have a faster download speed with this way. I can't promise it will be available in a long time. 
+Chinese users may experience a faster download speed in this way. I can't promise it will be available in a long time. 
 
 ```shell
 docker pull daocloud.io/codevs/dst_server:master-init
@@ -106,9 +123,9 @@ manager:
 
  * [DaoCloud](https://daocloud.io)
  * [CodeVS](http://codevs.cn/)
- * @m13253
- * @MephistoMMM
- * @wph95
+ * [@m13253](https://github.com/m13253)
+ * [@MephistoMMM](https://github.com/MephistoMMM)
+ * [@wph95](https://github.com/wph95)
  
 ## License
 
