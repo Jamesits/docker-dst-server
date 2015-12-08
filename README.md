@@ -97,7 +97,7 @@ In other cases, you can set ENV `DST_SERVER_TOKEN` using the content of your `se
 
 ## Modify Settings on a Volume You Don't Have Access To
 
- 1. Create or use a Docker container which have SSH Daemon service (Like [`rastasheep/ubuntu-sshd`](https://registry.hub.docker.com/u/rastasheep/ubuntu-sshd/), but for security issues I recommend using your own image and use pubkey autiencation. )
+ 1. Create or use a Docker container which have SSH Daemon service (Like [`rastasheep/ubuntu-sshd`](https://registry.hub.docker.com/u/rastasheep/ubuntu-sshd/), but for security issues I recommend using your own image and use pubkey authencation. )
  2. Mount your server config volume to some place of our SSH Daemon container
  3. SSH into daemon container and change settings
  4. Restart game server using `docker-compose restart`
