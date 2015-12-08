@@ -19,9 +19,17 @@
 
 set -e
 
-echo "Don't Starve Together Dedicated Server Docker Image"
-echo "By James Swineson"
-echo "https://hub.docker.com/r/jamesits/don-t-starve-together-dedicated-server/"
+echo "
+Don't Starve Together Dedicated Server Docker Startup Image, 
+Copyright (C) 2015 James Swineson
+This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you 
+are welcome to redistribute it under certain conditions;
+visit https://github.com/Jamesits/Don-t-Starve-Together-Dedicated-Server/blob/master/LICENSE
+for details.
+
+Docker Hub: https://hub.docker.com/r/jamesits/don-t-starve-together-dedicated-server/
+Github: https://github.com/Jamesits/Don-t-Starve-Together-Dedicated-Server
+"
 
 if [ "$1" = 'start' ]; then
     echo "Updating server..."
