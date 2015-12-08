@@ -7,7 +7,7 @@ echo "https://hub.docker.com/r/jamesits/don-t-starve-together-dedicated-server/"
 
 if [ "$1" = 'start' ]; then
     echo "Updating server..."
-    exec gosu $STEAMCMD_INSTALLATION_DIR/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $DST_INSTALLATION_DIR +app_update 343050 validate +quit
+    $STEAMCMD_INSTALLATION_DIR/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $DST_INSTALLATION_DIR +app_update 343050 validate +quit
     
     echo "Checking server token..."
     mkdir -p $DST_DATA_DIR/DoNotStarveTogether

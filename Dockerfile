@@ -1,4 +1,4 @@
-# Version 0.0.4
+# Version 0.0.5
 FROM debian:latest
 MAINTAINER James Swineson "jamesswineson@gmail.com"
 
@@ -14,7 +14,6 @@ RUN dpkg --add-architecture i386 \
 		libcurl4-gnutls-dev:i386 \
 		wget \
 		tar \
-		gosu \
  	&& apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
 	 
