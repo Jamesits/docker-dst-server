@@ -34,6 +34,7 @@ Github: https://github.com/Jamesits/Don-t-Starve-Together-Dedicated-Server
 if [ "$1" = 'start' ]; then
     echo "Updating server..."
     $STEAMCMD_INSTALLATION_DIR/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $DST_INSTALLATION_DIR +app_update 343050 validate +quit
+    cat /root/Steam/logs/stderr.txt
     
     echo "Checking server token..."
     mkdir -p $DST_DATA_DIR/DoNotStarveTogether
