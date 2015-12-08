@@ -41,7 +41,7 @@ RUN mkdir -p $STEAMCMD_INSTALLATION_DIR \
 	
 RUN mkdir -p $DST_INSTALLATION_DIR \
 	&& $STEAMCMD_INSTALLATION_DIR/steamcmd.sh +login anonymous +force_install_dir $DST_INSTALLATION_DIR +app_update 343050 validate +quit \
-	&& cat /root/Steam/logs/stderr.txt
+	&& cat /root/Steam/logs/stderr.txt \
 	&& mkdir -p $DST_DATA_DIR/DoNotStarveTogether
 
 COPY ./docker-entrypoint.sh $DST_DATA_DIR/docker-entrypoint.sh
