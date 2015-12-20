@@ -37,7 +37,7 @@ if [ "$1" = 'start' ]; then
         +login anonymous \
         +force_install_dir "$DST_INSTALLATION_DIR" \
         +app_update 343050 validate \
-        +quit
+        +quit || { _ret=$?; cat >&2 /root/Steam/logs/stderr.txt; exit $_ret; }
     cat >&2 /root/Steam/logs/stderr.txt
     
     echo >&2 "Checking server token..."
