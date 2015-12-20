@@ -42,6 +42,10 @@ if [ "$1" = 'start' ]; then
         printf '%s\0' "$DST_SERVER_TOKEN" > "$DST_DATA_DIR"/DoNotStarveTogether/server_token.txt
     fi
     
+    echo >&2 "Checking server mode settings..."
+    if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/dedicated_server_mods_setup.lua ]; then
+        cp "$DST_DATA_DIR"/DoNotStarveTogether/dedicated_server_mods_setup.lua "$DST_INSTALLATION_DIR"/mods/
+    
     echo >&2 "Starting server..."
     cd "$DST_INSTALLATION_DIR"/bin
     exec ./dontstarve_dedicated_server_nullrenderer \
