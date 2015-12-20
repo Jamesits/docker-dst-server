@@ -50,17 +50,18 @@ if [ "$1" = 'start' ]; then
     fi
     
     echo >&2 "Saving user settings..."
-    mkdir -p "$DST_DATA_DIR"/DoNotStarveTogether/save
-    if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/blocklist.txt ]; then
-        cp "$DST_DATA_DIR"/DoNotStarveTogether/blocklist.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
-    fi
+    if [ -d "$DST_DATA_DIR"/DoNotStarveTogether/save/ ]; then
+        if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/blocklist.txt ]; then
+            cp "$DST_DATA_DIR"/DoNotStarveTogether/blocklist.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
+        fi
+            
+        if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/adminlist.txt ]; then
+            cp "$DST_DATA_DIR"/DoNotStarveTogether/adminlist.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
+        fi
         
-    if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/adminlist.txt ]; then
-        cp "$DST_DATA_DIR"/DoNotStarveTogether/adminlist.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
-    fi
-    
-    if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/whitelist.txt ]; then
-        cp "$DST_DATA_DIR"/DoNotStarveTogether/whitelist.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
+        if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/whitelist.txt ]; then
+            cp "$DST_DATA_DIR"/DoNotStarveTogether/whitelist.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
+        fi
     fi
     
     echo >&2 "Starting server..."
