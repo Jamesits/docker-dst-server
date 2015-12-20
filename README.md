@@ -94,7 +94,8 @@ docker build --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTP_PR
 ## Entrypoint Script Arguments
 
  * `start`: the default `CMD` to start server
- * `reset`: delete saved game
+ * `reset`: delete saved game (you should `start` twice after that to prevent any errors)
+ * `update`: update server program and mods
  
 ## Server Settings
 
