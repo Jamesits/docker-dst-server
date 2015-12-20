@@ -57,4 +57,11 @@ if [ "$1" = 'start' ]; then
         "$@"
 fi
 
+if [ "$1" = 'reset' ]; then
+    echo >&2 "Deleting saved game..."
+    rm -rf "$DST_DATA_DIR"/DoNotStarveTogether/save
+    echo >&2 "Saved game deleted successfully."
+    exit
+fi
+
 exec "$@"

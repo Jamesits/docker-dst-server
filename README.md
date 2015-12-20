@@ -94,6 +94,7 @@ docker build --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTP_PR
 ## Entrypoint Script Arguments
 
  * `start`: the default `CMD` to start server
+ * `reset`: delete saved game
 
 ## Instructions on Obtaining Server Token
 
