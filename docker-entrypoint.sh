@@ -51,7 +51,7 @@ if [ "$1" = 'start' ]; then
     
     echo >&2 "Applying user settings..."
     mkdir -p "$DST_DATA_DIR"/DoNotStarveTogether/save/
-    cp "$DST_DATA_DIR"/DoNotStarveTogether/*list.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
+    cp "$DST_DATA_DIR"/DoNotStarveTogether/*list.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/ || true
     
     echo >&2 "Starting server..."
     cd "$DST_INSTALLATION_DIR"/bin
@@ -64,7 +64,7 @@ fi
 
 if [ "$1" = 'reset' ]; then
     echo >&2 "Saving user settings..."
-    cp "$DST_DATA_DIR"/DoNotStarveTogether/save/*list.txt "$DST_DATA_DIR"/DoNotStarveTogether/
+    cp "$DST_DATA_DIR"/DoNotStarveTogether/save/*list.txt "$DST_DATA_DIR"/DoNotStarveTogether/ || true
     
     echo >&2 "Deleting saved game..."
     rm -rf "$DST_DATA_DIR"/DoNotStarveTogether/save
