@@ -1,7 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/sh -e
 
 # Don't Starve Together Dedicated Server Docker Image
 # Copyright (C) 2015 James Swineson
+# Copyright (C) 2015 Mingye Wang (Arthur2e5) <arthur2e5@aosc.io>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,11 +18,10 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-set -e
-
-echo "
+printf '%s\n' "
 Don't Starve Together Dedicated Server Docker Startup Image, 
 Copyright (C) 2015 James Swineson
+Copyright (C) 2015 Mingye Wang (Arthur2e5)
 This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you 
 are welcome to redistribute it under certain conditions;
 visit https://github.com/Jamesits/Don-t-Starve-Together-Dedicated-Server/blob/master/LICENSE
@@ -32,19 +32,26 @@ Github: https://github.com/Jamesits/Don-t-Starve-Together-Dedicated-Server
 "
 
 if [ "$1" = 'start' ]; then
-    echo "Updating server..."
-    $STEAMCMD_INSTALLATION_DIR/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $DST_INSTALLATION_DIR +app_update 343050 validate +quit
-    cat /root/Steam/logs/stderr.txt
+    echo >&2 "Updating server..."
+    "$STEAMCMD_INSTALLATION_DIR"/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1
+        +login anonymous \
+        +force_install_dir "$DST_INSTALLATION_DIR" \
+        +app_update 343050 validate \
+        +quit
+    cat >&2 /root/Steam/logs/stderr.txt
     
-    echo "Checking server token..."
-    mkdir -p $DST_DATA_DIR/DoNotStarveTogether
-    if [ ! -f $DST_DATA_DIR/DoNotStarveTogether/server_token.txt ]; then
-        printf "%s\0" $DST_SERVER_TOKEN > $DST_DATA_DIR/DoNotStarveTogether/server_token.txt
+    echo >&2 "Checking server token..."
+    mkdir -p "$DST_DATA_DIR"/DoNotStarveTogether
+    if [ ! -f "$DST_DATA_DIR"/DoNotStarveTogether/server_token.txt ]; then
+        printf '%s\0' "$DST_SERVER_TOKEN" > "$DST_DATA_DIR"/DoNotStarveTogether/server_token.txt
     fi
     
-    echo "Starting server..."
-    cd $DST_INSTALLATION_DIR/bin
-    exec ./dontstarve_dedicated_server_nullrenderer -port $DST_PORT -persistent_storage_root $DST_DATA_DIR "$@"
+    echo >&2 "Starting server..."
+    cd "$DST_INSTALLATION_DIR"/bin
+    exec ./dontstarve_dedicated_server_nullrenderer \
+        -port "$DST_PORT" \
+        -persistent_storage_root "$DST_DATA_DIR" \
+        "$@"
 fi
 
 exec "$@"
