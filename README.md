@@ -81,6 +81,14 @@ Note: If you use Docker the VM way (i.e. running the image without `/data/DoNotS
 
 More Information please refer to [Docker Hub page](https://hub.docker.com/r/jamesits/don-t-starve-together-dedicated-server/).
 
+### Build Docker image locally
+
+```shell
+git clone https://github.com/Jamesits/Don-t-Starve-Together-Dedicated-Server.git dst_server
+cd dst_server
+docker build --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTP_PROXY --build-arg https_proxy=$HTTP_PROXY --build-arg http_proxy=$HTTP_PROXY .
+```
+
 ----------
 
 ## Entrypoint Script Arguments
