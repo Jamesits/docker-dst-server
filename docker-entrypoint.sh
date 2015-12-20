@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 # Don't Starve Together Dedicated Server Docker Image
-# Copyright (C) 2015 James Swineson
+# Copyright (C) 2015 James Swineson (Jamesits) <jamesswineson@gmail.com>
 # Copyright (C) 2015 Mingye Wang (Arthur2e5) <arthur2e5@aosc.io>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 
 printf '%s\n' "
 Don't Starve Together Dedicated Server Docker Startup Image, 
-Copyright (C) 2015 James Swineson
+Copyright (C) 2015 James Swineson (Jamesits)
 Copyright (C) 2015 Mingye Wang (Arthur2e5)
 This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you 
 are welcome to redistribute it under certain conditions;

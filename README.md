@@ -139,7 +139,8 @@ manager:
 ## License
 
     Don't Starve Together Dedicated Server Docker Image
-    Copyright (C) 2015 James Swineson
+    Copyright (C) 2015 James Swineson (Jamesits)
+    Copyright (C) 2015 Mingye Wang (Arthur2e5)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
