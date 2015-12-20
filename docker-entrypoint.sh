@@ -42,11 +42,25 @@ if [ "$1" = 'start' ]; then
         printf '%s\0' "$DST_SERVER_TOKEN" > "$DST_DATA_DIR"/DoNotStarveTogether/server_token.txt
     fi
     
-    echo >&2 "Checking server mode settings..."
+    echo >&2 "Saving server mode settings..."
     if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/dedicated_server_mods_setup.lua ]; then
         cp "$DST_DATA_DIR"/DoNotStarveTogether/dedicated_server_mods_setup.lua "$DST_INSTALLATION_DIR"/mods/
     else
         cp "$DST_INSTALLATION_DIR"/mods/dedicated_server_mods_setup.lua "$DST_DATA_DIR"/DoNotStarveTogether/
+    fi
+    
+    echo >&2 "Saving user settings..."
+    mkdir -p "$DST_DATA_DIR"/DoNotStarveTogether/save
+    if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/blocklist.txt ]; then
+        cp "$DST_DATA_DIR"/DoNotStarveTogether/blocklist.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
+    fi
+        
+    if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/adminlist.txt ]; then
+        cp "$DST_DATA_DIR"/DoNotStarveTogether/adminlist.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
+    fi
+    
+    if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/whitelist.txt ]; then
+        cp "$DST_DATA_DIR"/DoNotStarveTogether/whitelist.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/
     fi
     
     echo >&2 "Starting server..."
