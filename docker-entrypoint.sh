@@ -72,4 +72,16 @@ if [ "$1" = 'reset' ]; then
     exit
 fi
 
+if [ "$1" = 'update' ]; then
+    echo >&2 "Updating server..."
+    "$STEAMCMD_INSTALLATION_DIR"/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir /home/steam/steamapps/DST +app_update 343050 validate +quit
+    
+    echo >&2 "Updating server mods..."
+    cd "$DST_INSTALLATION_DIR"/bin
+    ./dontstarve_dedicated_server_nullrenderer -only_update_server_mods
+    
+    echo >&2 "Server updated successfully."
+    exit
+fi
+
 exec "$@"
