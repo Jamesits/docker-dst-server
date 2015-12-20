@@ -95,6 +95,12 @@ docker build --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTP_PR
 
  * `start`: the default `CMD` to start server
  * `reset`: delete saved game
+ 
+## Server Settings
+
+All persist server settings can be found under `./server_config` by default. 
+
+`save/*list.txt` will be copied to  `./server_config` automatically so they won't be removed on server reset. 
 
 ## Instructions on Obtaining Server Token
 
