@@ -66,6 +66,7 @@ if [ "$1" = 'start' ]; then
     
     echo >&2 "Starting server..."
     cd "$DST_INSTALLATION_DIR"/bin
+    shift
     exec ./dontstarve_dedicated_server_nullrenderer \
         -port "$DST_PORT" \
         -persistent_storage_root "$DST_DATA_DIR" \
