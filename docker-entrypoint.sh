@@ -45,6 +45,9 @@ if [ "$1" = 'start' ]; then
     echo >&2 "Checking server mode settings..."
     if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/dedicated_server_mods_setup.lua ]; then
         cp "$DST_DATA_DIR"/DoNotStarveTogether/dedicated_server_mods_setup.lua "$DST_INSTALLATION_DIR"/mods/
+    else
+        cp "$DST_INSTALLATION_DIR"/mods/dedicated_server_mods_setup.lua "$DST_DATA_DIR"/DoNotStarveTogether/
+    fi
     
     echo >&2 "Starting server..."
     cd "$DST_INSTALLATION_DIR"/bin
