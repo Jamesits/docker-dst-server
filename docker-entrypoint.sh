@@ -31,57 +31,95 @@ Docker Hub: https://hub.docker.com/r/jamesits/don-t-starve-together-dedicated-se
 Github: https://github.com/Jamesits/Don-t-Starve-Together-Dedicated-Server
 "
 
-if [ "$1" = 'start' ]; then
+##set -e error handler.
+on_error() {
+  echo >&2 "Error on line ${1}${3+: ${3}}; RET ${2}."
+  echo "This error is triggered by \`sh -e' in the script; to override it, run `sh "$0"` instead."
+  exit $2
+}
+trap 'on_error ${LINENO} $?' ERR 2>/dev/null || true # some shells don't have ERR trap.
+
+##runs the specified steam cmds.
+steam_eval(){
+    _ret=0
+    #>args.EACH {|cmd| -> steamcmd_args += shell_eval_expd("+#{cmd}")}
+    #-array steamcmd_args as new args. inplace.
+    for eval_cmd; do
+        eval 'set -$- -- "$@" '"+$eval_cmd"
+    done
+    "$STEAMCMD_INSTALLATION_DIR"/steamcmd.sh \
+        +@ShutdownOnFailedCommand 1 \
+        +@NoPromptForPassword 1 \
+        +login anonymous \
+        +force_install_dir "$DST_INSTALLATION_DIR" "$@" +quit || _ret=$?
+    cat >&2 /root/Steam/logs/stderr.txt || true
+    return $_ret
+}
+
+##updates the server.
+steam_update_dst(){
     echo >&2 "Updating server..."
-    "$STEAMCMD_INSTALLATION_DIR"/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "$DST_INSTALLATION_DIR" +app_update 343050 validate +quit \
-            || { _ret=$?; cat >&2 /root/Steam/logs/stderr.txt; exit $_ret; }
-    
+    steam_eval 'app_update 343050 validate'
+}
+
+##Calls the DST binary in the right dir.
+dst_bin(){
+    pushd "$DST_INSTALLATION_DIR"/bin
+    ./dontstarve_dedicated_server_nullrenderer "$@"
+    popd
+}
+
+##Execs to the DST binary in the right dir.
+exec_dst_bin(){
+    cd "$DST_INSTALLATION_DIR"/bin
+    ./dontstarve_dedicated_server_nullrenderer "$@"
+}
+
+##shorthand for a bunch of cp magic
+copy(){ cp -a --reflink=auto "$@"; }
+
+case "$1" in
+start)
+    shift
+    steam_update_dst
     echo >&2 "Checking server token..."
     mkdir -p "$DST_DATA_DIR"/DoNotStarveTogether
     if [ ! -f "$DST_DATA_DIR"/DoNotStarveTogether/server_token.txt ]; then
         printf '%s\0' "$DST_SERVER_TOKEN" > "$DST_DATA_DIR"/DoNotStarveTogether/server_token.txt
     fi
     
-    echo >&2 "Applying server mode settings..."
+    echo >&2 "Applying server mod settings..."
     if [ -f "$DST_DATA_DIR"/DoNotStarveTogether/dedicated_server_mods_setup.lua ]; then
-        cp "$DST_DATA_DIR"/DoNotStarveTogether/dedicated_server_mods_setup.lua "$DST_INSTALLATION_DIR"/mods/
+        copy "$DST_DATA_DIR"/DoNotStarveTogether/dedicated_server_mods_setup.lua "$DST_INSTALLATION_DIR"/mods/
     else
-        cp "$DST_INSTALLATION_DIR"/mods/dedicated_server_mods_setup.lua "$DST_DATA_DIR"/DoNotStarveTogether/
+        copy "$DST_INSTALLATION_DIR"/mods/dedicated_server_mods_setup.lua "$DST_DATA_DIR"/DoNotStarveTogether/
     fi
     
     echo >&2 "Applying user settings..."
     mkdir -p "$DST_DATA_DIR"/DoNotStarveTogether/save/
-    cp "$DST_DATA_DIR"/DoNotStarveTogether/*list.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/ || true
+    copy "$DST_DATA_DIR"/DoNotStarveTogether/*list.txt "$DST_DATA_DIR"/DoNotStarveTogether/save/ || true
     
     echo >&2 "Starting server..."
-    cd "$DST_INSTALLATION_DIR"/bin
-    shift
-    exec ./dontstarve_dedicated_server_nullrenderer \
-        -port "$DST_PORT" \
-        -persistent_storage_root "$DST_DATA_DIR" \
-        "$@"
-fi
+    exec_dst_bin -port "$DST_PORT" -persistent_storage_root "$DST_DATA_DIR" "$@"
+    ;;
 
-if [ "$1" = 'reset' ]; then
+reset)
     echo >&2 "Saving user settings..."
-    cp "$DST_DATA_DIR"/DoNotStarveTogether/save/*list.txt "$DST_DATA_DIR"/DoNotStarveTogether/ || true
+    copy "$DST_DATA_DIR"/DoNotStarveTogether/save/*list.txt "$DST_DATA_DIR"/DoNotStarveTogether/ || true
     
     echo >&2 "Deleting saved game..."
     rm -rf "$DST_DATA_DIR"/DoNotStarveTogether/save
     echo >&2 "Saved game deleted successfully."
-    exit
-fi
+    ;;
 
-if [ "$1" = 'update' ]; then
-    echo >&2 "Updating server..."
-    "$STEAMCMD_INSTALLATION_DIR"/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir /home/steam/steamapps/DST +app_update 343050 validate +quit
-    
+update)
+    steam_update_dst    
     echo >&2 "Updating server mods..."
-    cd "$DST_INSTALLATION_DIR"/bin
-    ./dontstarve_dedicated_server_nullrenderer -only_update_server_mods
-    
+    dst_bin -only_update_server_mods
     echo >&2 "Server updated successfully."
-    exit
-fi
+    ;;
 
-exec "$@"
+*)
+    exec "$@"
+    ;;
+esac
