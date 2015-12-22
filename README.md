@@ -6,7 +6,7 @@ This is the Docker image for DST dedicated server, based on [`debian:latest`](ht
 
 ## Project Status
 
-It's been proved working on at least 2 servers with a customizes settings. There is currently no automated tests or CI. 
+It's been proved working on at least 2 servers with customized settings. There is currently no automated tests or CI. 
 
 Functions: 
 
@@ -21,18 +21,19 @@ Functions:
 
 Tested environments: 
   
-  * [x] An Antergos (based on Arch Linux)
+  * Antergos (an Arch Linux based distro)
     * System inside a Hyper-V Virtual Machine of Windows 8.1
     * 8GB RAM
     * running the `latest` tag of Docker Hub image, i.e. the most recent code from `master` of this Github repo
-  * [x] An DaoCloud server
+  * DaoCloud (a docker hosting platform)
     * 1GB RAM
     * running the most recent tagged code in this Github repo
     * image built from DaoCloud custom mechanism
 
 ## Known Issues
 
- * There is currently no easy way to set up Cave server using this. Working in progress. 
+ * There is currently no easy way to set up Cave server using this. Work in progress.
+  * Don't expect this to be done so soon -- the cave guide on the offical forum has a terribly low SNR.
  * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )
  * It should be cross-platform, but OS X and Windows haven't been fully tested. 
  
