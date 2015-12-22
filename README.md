@@ -135,13 +135,13 @@ manager:
 ## Maintainer
 
  * [James Swineson](https://swineson.me)
+ * [@Arthur2e5](https://github.com/Arthur2e5)
  
 ## Thanks
 
  * [@MephistoMMM](https://github.com/MephistoMMM)
  * [@m13253](https://github.com/m13253)
  * [@wph95](https://github.com/wph95)
- * [@Arthur2e5](https://github.com/Arthur2e5)
  * [DaoCloud](https://daocloud.io)
  * [CodeVS](http://codevs.cn/)
  
