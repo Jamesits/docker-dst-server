@@ -72,7 +72,7 @@ dst_bin(){
 ##Execs to the DST binary in the right dir.
 exec_dst_bin(){
     cd "$DST_INSTALLATION_DIR"/bin
-    ./dontstarve_dedicated_server_nullrenderer "$@"
+    exec ./dontstarve_dedicated_server_nullrenderer "$@"
 }
 
 ##shorthand for a bunch of cp magic
