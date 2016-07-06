@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
 ##set -e error handler.
 on_error() {
@@ -7,7 +8,7 @@ on_error() {
 }
 trap 'on_error ${LINENO} $?' ERR 2>/dev/null || true # some shells don't have ERR trap.
 
-if [ "$1" -e "dst-server" ]; then
+if [ "$1" == "dst-server" ]; then
     # Copy default config
     cp -rn /data/default/* /data/dst
     
