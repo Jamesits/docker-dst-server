@@ -16,7 +16,7 @@ if [ "$1" -e "dst-server" ]; then
     ln -s /data/dst/dedicated_server_mods_setup.lua /usr/local/src/dst_server/mods/
 
     # Update game
-    /usr/local/src/steamcmd/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "/usr/local/src/dst_server" +app_update 343050 +validate +quit
+    steamcmd +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "/usr/local/src/dst_server" +app_update 343050 +validate +quit
     dst-server -only_update_server_mods
 fi
 
