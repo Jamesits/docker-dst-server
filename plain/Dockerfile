@@ -32,7 +32,7 @@ RUN expect -c "spawn dst-server -persistent_storage_root /data -conf_dir dst -cl
 
 # Copy default config
 RUN mkdir -p /data/default
-COPY config/* /data/default/
+COPY config /data/default
 
 COPY docker-entrypoint.sh /entrypoint.sh
 

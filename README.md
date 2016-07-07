@@ -6,13 +6,17 @@ This is the Docker image for DST dedicated server, based on [`debian:latest`](ht
 
 ## Project Status
 
-Currently in development.
+Plain (caveless) server should be working.
 
 ## Known Issues
 
- * There is currently no easy way to set up Cave server using this. Work in progress.
- * Don't expect this to be done so soon -- the cave guide on the offical forum has a terribly low SNR.
  * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )
+ * Cave server are not tested.
+ * If you forward port 10999/udp to another port, clients may not connect. 
+ 
+# Recommended Hardware
+
+ * 1GB base RAM, plus 60MB per user.
  
 ----------
 
