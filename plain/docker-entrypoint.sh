@@ -10,6 +10,7 @@ trap 'on_error ${LINENO} $?' ERR 2>/dev/null || true # some shells don't have ER
 
 if [ "$1" == "dst-server" ]; then
     # Copy default config
+    cp -rn /data/empty/* /data/dst
     cp -rn /data/default/* /data/dst
     
     # Apply mods list
