@@ -11,25 +11,22 @@ Currently in development.
 ## Known Issues
 
  * There is currently no easy way to set up Cave server using this. Work in progress.
-  * Don't expect this to be done so soon -- the cave guide on the offical forum has a terribly low SNR.
+ * Don't expect this to be done so soon -- the cave guide on the offical forum has a terribly low SNR.
  * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )
- * It should be cross-platform, but OS X and Windows haven't been fully tested. 
  
 ----------
 
 ## Install Using Docker Compose
 
-It's the recommended way for those who are not familiar with Docker. 
-
 Create a folder for storing DST server files, then put a `docker-compose.yml` inside it, paste the following content: 
 ```yaml
 overworld-server:
-  image: jamesits/don-t-starve-together-dedicated-server:latest
+  image: jamesits/dst-server:plain
   restart: always
   ports:
   - 10999:10999/udp
   volumes:
-  - ./server_config:/data/DoNotStarveTogether
+  - ./server_config:/data/dst
 ```
 Then use `docker-compose up` to bring up the server. You can change server config in `./server_config`.
 
@@ -37,23 +34,13 @@ To update image, use `docker-compose pull` to update automatically.
 
 ## Manual Installation
 
-Do this only if you know how to use Docker and know exactly what every command means. Data is invaluable. 
-
 ### Install from Docker Hub
 
 ```shell
-docker pull jamesits/don-t-starve-together-dedicated-server
+docker pull jamesits/dst-server
 ```
 
-### Install from DaoCloud
-
-Chinese users may experience a faster download speed in this way. I can't promise it will be available in a long time. 
-
-```shell
-docker pull daocloud.io/codevs/dst_server
-```
-
-Note: If you use Docker the VM way (i.e. running the image without `/data/DoNotStarveTogether` mounted to a volume or host), please be cautious:
+Note: If you use Docker the VM way (i.e. running the image without `/data/dst` mounted to a volume or host), please be cautious:
 
   * All data (server settings, saved game status, etc.) will be **DELETED PERMANATELY** when deleting or updating image
   * You have to use the default server configuration or pass command line arguments by yourself
@@ -63,32 +50,24 @@ More Information please refer to [Docker Hub page](https://hub.docker.com/r/jame
 ### Build Docker image locally
 
 ```shell
-git clone https://github.com/Jamesits/Don-t-Starve-Together-Dedicated-Server.git dst_server
-cd dst_server
-docker build --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTP_PROXY --build-arg https_proxy=$HTTP_PROXY --build-arg http_proxy=$HTTP_PROXY .
+git clone https://github.com/Jamesits/docker-dst-server.git docker-dst-server
+cd docker-dst-server
+docker build .
 ```
 
 ----------
-
-## Entrypoint Script Arguments
-
- * `start`: the default `CMD` to start server
- * `reset`: delete saved game (you should `start` twice after that to prevent any errors)
- * `update`: update server program and mods
  
 ## Server Settings
 
 All persist server settings can be found under `./server_config` by default. 
 
-`save/*list.txt` will be copied to  `./server_config` automatically so they won't be removed on server reset. 
-
 ## Instructions on Obtaining Server Token
 
-Launch a steam client on a system with GUI, install Don't Starve Together, log in, press `~` button then type `TheNet:GenerateServerToken()` then press enter. You'll find a `server_token.txt` under your client config directory. (See ["References"](#references) section below for more detailed instructions. )
+Launch a steam client on a system with GUI, install Don't Starve Together, log in, press `~` button then type `TheNet:GenerateClusterToken()` then press enter. You'll find a `cluster_token.txt` under your client config directory. (See ["References"](#references) section below for more detailed instructions. )
 
-If you use the Docker Compose way, or have `/data/DoNotStarveTogether` mounted to your host machine, **copy the FILE** `server_token.txt` (not its content) to that folder. Also you may set token in `settings.ini`.
+If you use the Docker Compose way, or have `/data/dst` mounted to your host machine, **copy the FILE** `server_token.txt` (not its content) to that folder. Also you may set token in `settings.ini`.
 
-In other cases, you can set ENV `DST_SERVER_TOKEN` using the content of your `server_token.txt`. Just open it use any text editor and **copy the CONTENT**. Please note that if `server_token.txt` already exists, it won't be changed by startup script. 
+In other cases, you can set ENV `DST_CLUSTER_TOKEN` using the content of your `cluster_token.txt`. Just open it use any text editor and **copy the CONTENT**.
 
 ## Modify Settings on a Volume You Don't Have Access To
 
@@ -148,3 +127,4 @@ manager:
  * [Guides/Don’t Starve Together Dedicated Servers](http://dont-starve-game.wikia.com/wiki/Guides/Don%E2%80%99t_Starve_Together_Dedicated_Servers)
  * [[GUIDE] How to setup server dedicated cave on Linux](http://forums.kleientertainment.com/topic/59563-guide-how-to-setup-server-dedicated-cave-on-linux/)
  * [Run dedicated server in Docker](http://forums.kleientertainment.com/topic/60329-run-dedicated-server-in-docker/) (This post was written by me)
+ * [Guides by ToNiO in Steam community](https://steamcommunity.com/id/ToNiO44/myworkshopfiles/?section=guides&appid=322330)

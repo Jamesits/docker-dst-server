@@ -11,10 +11,11 @@ trap 'on_error ${LINENO} $?' ERR 2>/dev/null || true # some shells don't have ER
 if [ "$1" == "dst-server" ]; then
     # Copy default config
     cp -rn /data/empty/* /data/dst
-    cp -r /data/default/* /data/dst
+    cp -rn /data/default/* /data/dst
     
-    # Apply mods list
-    
+    if [ "$DST_CLUSTER_TOKEN" ]; then
+        echo -n "$DST_CLUSTER_TOKEN" > /data/dst/Cluster_1/cluster_token.txt
+    fi
 
     # Update game
     /usr/local/src/steamcmd/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "/usr/local/src/dst_server" +app_update 343050 +validate +quit
