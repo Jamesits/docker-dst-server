@@ -35,6 +35,7 @@ RUN expect -c "spawn dst-server -persistent_storage_root /data -conf_dir dst -cl
 RUN mkdir -p /data/default
 COPY config/* /data/default/
 
+COPY supervisor.conf /etc/supervisor/supervisor.conf
 COPY docker-entrypoint.sh /entrypoint.sh
 
 EXPOSE 10999/udp, 10910/udp
