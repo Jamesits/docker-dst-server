@@ -25,7 +25,10 @@ WORKDIR /usr/local/src/dst_server/bin
 # Generate empty config
 RUN expect -c "spawn dst-server -persistent_storage_root /data -conf_dir dst -cluster Cluster_1 -shard Master; expect \"Your Server Will Not Start\" { sleep 1; close };" \
     && mkdir -p /data/empty \
-    && mv /data/dst/* /data/empty
+    && mv /data/dst/* /data/empty \
+    && cp /usr/local/src/dst_server/mods/dedicated_server_mods_setup.lua /data/empty \
+    && rm /usr/local/src/dst_server/mods/dedicated_server_mods_setup.lua \
+    && ln -s /data/dst/dedicated_server_mods_setup.lua /usr/local/src/dst_server/mods/
 
 # Copy default config
 RUN mkdir -p /data/default

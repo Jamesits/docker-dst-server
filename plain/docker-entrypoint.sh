@@ -11,11 +11,10 @@ trap 'on_error ${LINENO} $?' ERR 2>/dev/null || true # some shells don't have ER
 if [ "$1" == "dst-server" ]; then
     # Copy default config
     cp -rn /data/empty/* /data/dst
-    cp -rn /data/default/* /data/dst
+    cp -r /data/default/* /data/dst
     
     # Apply mods list
-    touch /data/dst/dedicated_server_mods_setup.lua
-    ln -s /data/dst/dedicated_server_mods_setup.lua /usr/local/src/dst_server/mods/
+    
 
     # Update game
     /usr/local/src/steamcmd/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "/usr/local/src/dst_server" +app_update 343050 +validate +quit
