@@ -18,8 +18,8 @@ if [ "$1" == "dst-server" -o "$1" == "supervisord" ]; then
     fi
 
     # Update game
-    /usr/local/src/steamcmd/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "/usr/local/src/dst_server" +app_update 343050 +validate +quit
-    dst-server -only_update_server_mods
+    /usr/local/src/steamcmd/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "/usr/local/src/dst_server" +app_update 343050 validate +quit
+    dst-server -persistent_storage_root /data -conf_dir dst -only_update_server_mods
 fi
 
 exec "$@"
