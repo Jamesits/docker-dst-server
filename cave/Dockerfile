@@ -38,6 +38,6 @@ COPY config/* /data/default/
 COPY supervisor.conf /etc/supervisor/supervisor.conf
 COPY docker-entrypoint.sh /entrypoint.sh
 
-EXPOSE 10999/udp, 10910/udp
+EXPOSE 10999/udp 10910/udp
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf", "-n"]
