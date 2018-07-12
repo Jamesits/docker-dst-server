@@ -36,7 +36,7 @@ fi
 if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord" ]; then
     # Update game
     echo "Updating server..."
-    steamcmd +runscript /opt/steamcmd_scripts/update_dst_server
+    steamcmd +runscript /opt/steamcmd_scripts/install_dst_server
     echo "Updating mods..."
     dontstarve_dedicated_server_nullrenderer -only_update_server_mods
 fi

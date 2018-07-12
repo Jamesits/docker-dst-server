@@ -25,7 +25,6 @@ COPY entrypoint.sh /entrypoint.sh
 COPY steamcmd /usr/local/bin/
 COPY dontstarve_dedicated_server_nullrenderer /usr/local/bin/
 COPY install_dst_server /opt/steamcmd_scripts/
-COPY update_dst_server /opt/steamcmd_scripts/
 RUN chmod +x /entrypoint.sh \
     && chmod +x /usr/local/bin/steamcmd \
     && chmod +x /usr/local/bin/dontstarve_dedicated_server_nullrenderer
