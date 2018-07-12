@@ -39,9 +39,9 @@ RUN mkdir -p /opt/dst_server \
     && rm -rf /root/{Steam,.steam}
 
 # install default config
-COPY dst_default_config /opt/
+COPY dst_default_config /opt/dst_default_config/
 
-EXPOSE 10999/udp 11000/udp
+EXPOSE 10999/udp 11000/udp 12346/udp
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf", "-n"]
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 CMD [ "/healthcheck.sh" ]
