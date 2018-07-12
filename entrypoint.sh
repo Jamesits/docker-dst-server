@@ -13,7 +13,8 @@ if [ ! -d "/data/DoNotStarveTogether/Cluster_1/mods" ]; then
     mkdir -p /data/DoNotStarveTogether/Cluster_1
     cp -r /opt/dst_server/mods /data/DoNotStarveTogether/Cluster_1
 fi
-mount --bind /data/DoNotStarveTogether/Cluster_1/mods /opt/dst_server/mods
+rm -rf /opt/dst_server/mods
+ln -s /data/DoNotStarveTogether/Cluster_1/mods /opt/dst_server/mods
 
 if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord" ]; then
     # Update game
