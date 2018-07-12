@@ -1,0 +1,6 @@
+Looking to add mods to your game?
+
+1) Head to the mod downloads section in the Klei Forums
+   http://forums.kleientertainment.com/downloads.php
+2) Unzip the files you download to this location
+3) Start the game, go to the mods menu, and enable the mods you'd like to run!
