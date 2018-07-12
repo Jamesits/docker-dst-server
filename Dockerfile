@@ -16,7 +16,8 @@ RUN dpkg --add-architecture i386 \
 # install steamcmd
 RUN mkdir -p /opt/steamcmd \
 	&& wget "${STEAMCMD_URL}" -O /tmp/steamcmd.tar.gz \
-	&& tar -xvzf /tmp/steamcmd.tar.gz -C /opt/steamcmd
+	&& tar -xvzf /tmp/steamcmd.tar.gz -C /opt/steamcmd \
+    && rm -rf /tmp/*
 
 # install helper tools
 COPY supervisor.conf /etc/supervisor/supervisor.conf
@@ -33,7 +34,8 @@ RUN mkdir -p /data \
 # install Don't Starve Together server
 RUN mkdir -p /opt/dst_server \
 	&& steamcmd +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "/opt/dst_server" +app_update 343050 validate +quit \
-    && ln -s /opt/dst_server/bin/dontstarve_dedicated_server_nullrenderer /usr/local/bin/dontstarve_dedicated_server_nullrenderer
+    && ln -s /opt/dst_server/bin/dontstarve_dedicated_server_nullrenderer /usr/local/bin/dontstarve_dedicated_server_nullrenderer \
+    && rm -rf /root/{Steam,.steam}
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf", "-n"]
