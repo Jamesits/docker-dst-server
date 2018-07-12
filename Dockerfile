@@ -44,4 +44,4 @@ COPY dst_default_config /opt/dst_default_config/
 EXPOSE 10999-11000/udp 12346-12347/udp
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf", "-n"]
-HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 CMD [ "/healthcheck.sh" ]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 CMD [ "/healthcheck.sh" ]
