@@ -81,7 +81,7 @@ Your disk is full.
 ## Maintainer
 
  * [James Swineson](https://swineson.me)
- * [@Arthur2e5](https://github.com/Arthur2e5)
+ * [Mingye Wang](https://github.com/Arthur2e5)
  
 ## Thanks
 
