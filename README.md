@@ -4,10 +4,6 @@ They write their server setup instructions like sh*t, so we made this Docker ima
 
 ----------
 
-## Project Status
-
-Last verified: 2018-07-13
-
 ## Known Issues
 
  * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )
