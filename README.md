@@ -77,4 +77,5 @@ Your disk is full.
 ## References
 
  * [How to setup dedicated server with cave on Linux](https://steamcommunity.com/sharedfiles/filedetails/?id=590565473)
+ * [How to install,configure and update mods on Dedicated Server](https://steamcommunity.com/sharedfiles/filedetails/?id=591543858)
  * [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD)
