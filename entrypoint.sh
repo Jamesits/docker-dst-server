@@ -8,6 +8,12 @@ on_error() {
 }
 trap 'on_error ${LINENO} $?' ERR 2>/dev/null || true # some shells don't have ERR trap.
 
+# create default server config if there is none
+if [ ! -d "/data/DoNotStarveTogether" ]; then
+    echo "Creating default config..."
+    cp -r /opt/dst_default_config/* /data
+fi
+
 # override server mods folder with user provided one
 if [ ! -d "/data/DoNotStarveTogether/Cluster_1/mods" ]; then
     mkdir -p /data/DoNotStarveTogether/Cluster_1

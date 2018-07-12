@@ -40,6 +40,9 @@ RUN mkdir -p /opt/dst_server \
 	&& steamcmd +runscript /opt/steamcmd_scripts/install_dst_server \
     && rm -rf /root/{Steam,.steam}
 
+# install default config
+COPY dst_default_config /opt/
+
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf", "-n"]
 HEALTHCHECK none
