@@ -42,6 +42,7 @@ RUN mkdir -p /opt/dst_server \
 # install default config
 COPY dst_default_config /opt/
 
+EXPOSE 10999/udp 11000/udp
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf", "-n"]
 HEALTHCHECK none

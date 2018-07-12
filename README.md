@@ -15,7 +15,7 @@ They write their server setup instructions like sh*t, so we made this Docker ima
 ## Running
 
 ```shell
-docker run -v ${HOME}/.klei/DoNotStarveTogether:/data -it jamesits/dst-server:latest
+docker run -v ${HOME}/.klei/DoNotStarveTogether:/data  -p 10999:10999/udp -p 11000:11000/udp -it jamesits/dst-server:latest
 ```
 
 We recommend reserving 1GiB Memory for the server, plus 60MiB per active user.
