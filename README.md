@@ -56,7 +56,7 @@ More Information please refer to [Docker Hub page](https://hub.docker.com/r/jame
 ```shell
 git clone https://github.com/Jamesits/docker-dst-server.git docker-dst-server
 cd docker-dst-server
-docker build .
+docker build . -t dst-server:latest
 ```
 
 ----------
