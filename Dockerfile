@@ -2,7 +2,7 @@ FROM debian:latest
 LABEL maintainer="James Swineson <docker@public.swineson.me>"
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG STEAMCMD_URL=http://media.steampowered.com/installer/steamcmd_linux.tar.gz
+ARG STEAMCMD_URL=https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
 
 # install packages
 RUN dpkg --add-architecture i386 \
