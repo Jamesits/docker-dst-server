@@ -2,4 +2,4 @@
 set -eu
 
 cd /opt/dst_server/bin
-exec ./dontstarve_dedicated_server_nullrenderer "${@:2}"
+exec ./dontstarve_dedicated_server_nullrenderer "${@:1}"
