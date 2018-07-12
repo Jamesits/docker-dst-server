@@ -34,6 +34,12 @@ cd docker-dst-server
 docker build . -t dst-server:latest
 ```
 
+## FAQ
+
+#### Error! App '343050' state is 0x202 after update job.
+
+Your disk is full.
+
 ----------
 
 ## Maintainer
