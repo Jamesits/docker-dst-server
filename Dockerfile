@@ -26,7 +26,7 @@ COPY healthcheck.sh /
 COPY steamcmd /usr/local/bin/
 COPY dontstarve_dedicated_server_nullrenderer /usr/local/bin/
 COPY install_dst_server /opt/steamcmd_scripts/
-RUN chmod +x /{entrypoint,healthcheck}.sh /usr/local/bin/{steamcmd,dontstarve_dedicated_server_nullrenderer}
+RUN chmod +x /entrypoint.sh /healthcheck.sh /usr/local/bin/steamcmd /usr/local/bin/dontstarve_dedicated_server_nullrenderer
 
 # create data directory
 # dst server seems to be ignoring `-persistent_storage_root` argument, let's workaround it too
@@ -36,7 +36,7 @@ RUN mkdir -p /data \
 # install Don't Starve Together server
 RUN mkdir -p /opt/dst_server \
 	&& steamcmd +runscript /opt/steamcmd_scripts/install_dst_server \
-    && rm -rf /root/{Steam,.steam}
+    && rm -rf /root/Steam /root/.steam
 
 # install default config
 COPY dst_default_config /opt/dst_default_config/
