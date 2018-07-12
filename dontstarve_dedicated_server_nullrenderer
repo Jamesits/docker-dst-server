@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eu
+
+cd /opt/dst_server/bin
+exec ./dontstarve_dedicated_server_nullrenderer "${@:2}"
