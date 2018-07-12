@@ -14,7 +14,7 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
         echo "Creating default server config..."
         cp -r /opt/dst_default_config/* /data
         touch /data/DoNotStarveTogether/Cluster_1/cluster_token.txt
-        echo "Done, please fill in `DoNotStarveTogether/Cluster_1/cluster_token.txt` with your cluster token and restart server!"
+        echo "Done, please fill in \`DoNotStarveTogether/Cluster_1/cluster_token.txt\` with your cluster token and restart server!"
         exit
     fi
 
