@@ -6,7 +6,7 @@ This is the Docker image for DST dedicated server, based on [`debian:latest`](ht
 
 ## Project Status
 
-Plain (caveless) server should be working.
+***Working on new features, document not ready. Anything below is outdated.***
 
 ## Known Issues
 
