@@ -10,12 +10,13 @@ trap 'on_error ${LINENO} $?' ERR 2>/dev/null || true # some shells don't have ER
 
 # create default server config if there is none
 if [ ! -d "/data/DoNotStarveTogether" ]; then
-    echo "Creating default config..."
+    echo "Creating default server config..."
     cp -r /opt/dst_default_config/* /data
 fi
 
 # override server mods folder with user provided one
 if [ ! -d "/data/DoNotStarveTogether/Cluster_1/mods" ]; then
+    echo "Creating default mod config..."
     mkdir -p /data/DoNotStarveTogether/Cluster_1
     cp -r /opt/dst_server/mods /data/DoNotStarveTogether/Cluster_1
 fi
@@ -24,13 +25,10 @@ ln -s /data/DoNotStarveTogether/Cluster_1/mods /opt/dst_server/mods
 
 if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord" ]; then
     # Update game
+    echo "Updating server..."
     steamcmd +runscript /opt/steamcmd_scripts/update_dst_server
+    echo "Updating mods..."
     dontstarve_dedicated_server_nullrenderer -only_update_server_mods
-fi
-
-if [ "$1" == "dontstarve_dedicated_server_nullrenderer" ]; then
-    # otherwise the game loader will not find some scripts
-    cd /opt/dst_server/bin
 fi
 
 exec "$@"
