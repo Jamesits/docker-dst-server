@@ -24,14 +24,6 @@ We recommend reserving 1GiB Memory for the server, plus 60MiB per active user.
 
 **TODO**
 
-### Instructions on Obtaining Server Token
-
-Launch a steam client on a system with GUI, install Don't Starve Together, log in, press `~` button then type `TheNet:GenerateClusterToken()` then press enter. You'll find a `cluster_token.txt` under your client config directory. (See ["References"](#references) section below for more detailed instructions. )
-
-If you use the Docker Compose way, or have `/data/dst` mounted to your host machine, **copy the FILE** `server_token.txt` (not its content) to that folder. Also you may set token in `settings.ini`.
-
-In other cases, you can set ENV `DST_CLUSTER_TOKEN` using the content of your `cluster_token.txt`. Just open it use any text editor and **copy the CONTENT**.
-
 ## Build Docker image locally
 
 (In most cases you don't need this; just pull the prebuilt image from Docker Hub.)
