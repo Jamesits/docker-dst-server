@@ -24,11 +24,11 @@ rm -rf /opt/dst_server/mods
 ln -s /data/DoNotStarveTogether/Cluster_1/mods /opt/dst_server/mods
 
 # check cluster token
-if [ -f "/Data/DoNotStarveTogether/Cluster_1/cluster_token.txt" ]; then
+if [ ! -f "/data/DoNotStarveTogether/Cluster_1/cluster_token.txt" ]; then
     >&2 echo "cluster_token.txt not found!"
 else
     # the cluster_token.txt needs to be terminated without newline, try to fix
-    tr -d '\n' < /Data/DoNotStarveTogether/Cluster_1/cluster_token.txt > /Data/DoNotStarveTogether/Cluster_1/cluster_token.txt
+    tr -d '\n' < /data/DoNotStarveTogether/Cluster_1/cluster_token.txt > /data/DoNotStarveTogether/Cluster_1/cluster_token.txt
 fi
 
 if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord" ]; then
