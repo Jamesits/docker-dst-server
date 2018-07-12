@@ -25,6 +25,11 @@ COPY steamcmd /usr/local/bin/steamcmd
 RUN chmod +x /entrypoint.sh \
     && chmod +x /usr/local/bin/steamcmd
 
+# create data directory
+# dst server seems to be ignoring `-persistent_storage_root` argument, let's workaround it too
+RUN mkdir -p /data \
+    && ln -s /data ${HOME}/.klei
+
 # install Don't Starve Together server
 RUN mkdir -p /opt/dst_server \
 	&& steamcmd +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "/opt/dst_server" +app_update 343050 validate +quit \
