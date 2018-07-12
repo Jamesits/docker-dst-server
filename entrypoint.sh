@@ -18,7 +18,7 @@ ln -s /data/DoNotStarveTogether/Cluster_1/mods /opt/dst_server/mods
 
 if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord" ]; then
     # Update game
-    steamcmd +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "/opt/dst_server" +app_update 343050 +validate +quit
+    steamcmd +runscript /opt/steamcmd_scripts/update_dst_server
     dontstarve_dedicated_server_nullrenderer -only_update_server_mods
 fi
 
