@@ -1,19 +1,16 @@
 # Don't Starve Together Dedicated Server Docker Image
 
-They write their server setup instructions like sh*t, so we made this Docker image.
+They write their server setup instructions like sh*t, so we made this Docker image to simplify things.
 
 ----------
-
-## Known Issues
-
- * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )
 
 ## Running
 
 ### Prerequisites
 
- * Linux (4.4.0 tested) and runs Docker (18.05.0-ce tested)
- * CPU: 1 core is somewhat enough for a small-scale server (but don't try 60 ticks).
+ * Linux (4.4.0 tested) and runs Docker (18.05.0-ce tested).
+ * You may need a public IP to make your server accessable from Internet. Also latency matters.
+ * CPU: 1 core is somewhat enough for a small-scale server (but don't try 60 ticks, start from 15 or 30).
  * Memory: We recommend reserving 1GiB Memory for the server, plus 60MiB per active user.
  * Disk size: the Docker image takes 1.5GiB, and you need at least another 5MiB for maps, configs and logs.
 
@@ -50,6 +47,10 @@ git clone https://github.com/Jamesits/docker-dst-server.git docker-dst-server
 cd docker-dst-server
 docker build . -t dst-server:latest
 ```
+
+## Known Issues
+
+ * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )
 
 ## FAQ
 
