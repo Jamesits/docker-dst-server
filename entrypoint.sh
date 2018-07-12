@@ -19,4 +19,9 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
     dontstarve_dedicated_server_nullrenderer -only_update_server_mods
 fi
 
+if [ "$1" == "dontstarve_dedicated_server_nullrenderer" ]; then
+    # otherwise the game loader will not find some scripts
+    cd /opt/dst_server/bin
+fi
+
 exec "$@"
