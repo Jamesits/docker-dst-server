@@ -31,7 +31,6 @@ else
     tr -d '\n' < /Data/DoNotStarveTogether/Cluster_1/cluster_token.txt > /Data/DoNotStarveTogether/Cluster_1/cluster_token.txt
 fi
 
-
 if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord" ]; then
     # Update game
     echo "Updating server..."
