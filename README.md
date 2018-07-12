@@ -17,7 +17,7 @@ Last verified: 2018-07-13
 ### Prerequisites
 
  * Linux (4.4.0 tested) and runs Docker (18.05.0-ce tested)
- * CPU: 1 core is somewhat enough for a small-scale server.
+ * CPU: 1 core is somewhat enough for a small-scale server (but don't try 60 ticks).
  * Memory: We recommend reserving 1GiB Memory for the server, plus 60MiB per active user.
  * Disk size: the Docker image takes 1.5GiB, and you need at least another 5MiB for maps, configs and logs.
 
