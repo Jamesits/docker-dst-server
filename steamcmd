@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eu
 
-exec /opt/steamcmd/steamcmd.sh "${@:2}"
+exec /opt/steamcmd/steamcmd.sh "${@:1}"
