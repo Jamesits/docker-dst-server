@@ -1,0 +1,6 @@
+version: "2.0"
+build:
+    image:
+        dockerfile_path: Dockerfile
+        build_dir: /
+        cache: false
