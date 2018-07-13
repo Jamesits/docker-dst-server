@@ -2,6 +2,8 @@
 
 They write their server setup instructions like sh*t, so we made this Docker image to simplify things.
 
+Please read the whole document before putting your hands on your server.
+
 ----------
 
 ## Running
@@ -9,10 +11,10 @@ They write their server setup instructions like sh*t, so we made this Docker ima
 ### Prerequisites
 
  * Linux (4.4.0 tested) and runs Docker (18.05.0-ce tested).
- * You may need a public IP to make your server accessable from Internet. Also latency matters.
+ * You may need a public IP to make your server accessable from Internet. Also latency matters. You need 4 UDP ports exposed to the public network. (See FAQ for details.)
  * CPU: 1 core is somewhat enough for a small-scale server (but don't try 60 ticks, start from 15 or 30).
  * Memory: We recommend reserving 1GiB Memory for the server, plus 60MiB per active user.
- * Disk size: the Docker image takes 1.5GiB, and you need at least another 5MiB for maps, configs and logs.
+ * Disk size: the Docker image takes 1.5GiB, and you need at least another 5MiB for maps, configs and logs. 4GiB available disk space is recommended.
 
 ### Start server
 
@@ -24,9 +26,15 @@ Start server:
 docker run -v ${HOME}/.klei/DoNotStarveTogether:/data -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp -it jamesits/dst-server:latest
 ```
 
+If you use `docker-compose`, an example config is provided.
+
 ### Stop server
 
-Just press `Ctrl+C`.
+Just press `Ctrl+C` and wait a little while to let itself spin down. (If the server is saving data, don't press ^C twice to force kill the server.)
+
+To programmatically shut down the server, send a SIGINT to the `supervisord` process. 
+
+Note: the server may take up to ~5min to save map and fully shut down.
  
 ## Server Configuration
 
@@ -57,6 +65,18 @@ docker build . -t dst-server:latest
  * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )
 
 ## FAQ
+
+#### How to update server or mods?
+
+Restart the server. Updates will be downloaded automatically.
+
+#### How to connect to a LAN only server?
+
+Run `c_connect("IP address", port)` or `c_connect("IP address", port, "password")` in client console.
+
+#### How to check if the server is online?
+
+You can try the 3rd party website [Don't Starve Together Server List](https://dstserverlist.appspot.com).
 
 #### What port does this server require?
 
