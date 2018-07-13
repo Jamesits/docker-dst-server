@@ -1,6 +1,14 @@
-version: "2.0"
-build:
-    image:
-        dockerfile_path: Dockerfile
-        build_dir: /
-        cache: false
+version: 3
+image: debian:latest
+stages:
+- build
+Production Build:
+  label: latest
+  stage: build
+  job_type: image_build
+  only:
+    branches:
+    - master
+  build_dir: /
+  cache: false
+  dockerfile_path: /Dockerfile
