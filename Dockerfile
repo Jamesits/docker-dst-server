@@ -6,17 +6,17 @@ ARG STEAMCMD_URL=https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux
 
 # install packages
 RUN dpkg --add-architecture i386 \
- 	&& apt-get update -y \
+     && apt-get update -y \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends ca-certificates lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 wget tar supervisor \
     && apt-get autoremove -y \
- 	&& apt-get clean -y \
- 	&& rm -rf /var/lib/apt/lists/*
+     && apt-get clean -y \
+     && rm -rf /var/lib/apt/lists/*
 
 # install steamcmd
 RUN mkdir -p /opt/steamcmd \
-	&& wget "${STEAMCMD_URL}" -O /tmp/steamcmd.tar.gz \
-	&& tar -xvzf /tmp/steamcmd.tar.gz -C /opt/steamcmd \
+    && wget "${STEAMCMD_URL}" -O /tmp/steamcmd.tar.gz \
+    && tar -xvzf /tmp/steamcmd.tar.gz -C /opt/steamcmd \
     && rm -rf /tmp/*
 
 # install helper tools
@@ -35,7 +35,7 @@ RUN mkdir -p /data \
 
 # install Don't Starve Together server
 RUN mkdir -p /opt/dst_server \
-	&& steamcmd +runscript /opt/steamcmd_scripts/install_dst_server \
+    && steamcmd +runscript /opt/steamcmd_scripts/install_dst_server \
     && rm -rf /root/Steam /root/.steam
 
 # install default config
