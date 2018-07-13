@@ -2,7 +2,7 @@
 
 They write their server setup instructions like sh*t, so we made this Docker image to simplify things.
 
-Please read the whole document before putting your hands on your server.
+Please read the whole document before putting your hands on your server. You can try playing on [our demo servers](https://github.com/Jamesits/dst-demo-servers) too.
 
 ----------
 
@@ -63,6 +63,7 @@ docker build . -t dst-server:latest
 ## Known Issues
 
  * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )
+ * Docker IPv6 support is another sh*t and we currently don't have any idea on it. Help and advices are always welcomed.
 
 ## FAQ
 
