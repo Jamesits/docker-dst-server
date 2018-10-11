@@ -2,7 +2,11 @@
 
 They write their server setup instructions like sh*t, so we made this Docker image to simplify things.
 
-Please read the whole document before putting your hands on your server. You can try playing on [our demo servers](https://github.com/Jamesits/dst-demo-servers) too.
+Please read the whole document before putting your hands on your server. 
+
+The game updates frequently, so there are daily built images on [Docker Hub](https://hub.docker.com/r/jamesits/dst-server/).
+
+[![Build Status](https://dev.azure.com/nekomimiswitch/General/_apis/build/status/Don't%20Starve%20Together)](https://dev.azure.com/nekomimiswitch/General/_build/latest?definitionId=4)
 
 ----------
 
