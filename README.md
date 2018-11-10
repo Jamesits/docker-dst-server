@@ -14,8 +14,9 @@ The game updates frequently, so there are daily built images on [Docker Hub](htt
 
 ### Prerequisites
 
- * Linux (4.4.0 tested) and runs Docker (18.05.0-ce tested).
- * You may need a public IP to make your server accessable from Internet. Also latency matters. You need 4 UDP ports exposed to the public network. (See FAQ for details.)
+ * Linux x86_64 and runs Docker (18.05.0-ce or later).
+ * You may need a public IP to make your server accessable from Internet. 
+ * You need 4 UDP ports exposed to the public network. (See FAQ for details.)
  * CPU: 1 core is somewhat enough for a small-scale server (but don't try 60 ticks, start from 15 or 30).
  * Memory: We recommend reserving 1GiB Memory for the server, plus 60MiB per active user.
  * Disk size: the Docker image takes 1.5GiB, and you need at least another 5MiB for maps, configs and logs. 4GiB available disk space is recommended.
@@ -30,7 +31,7 @@ Start server:
 docker run -v ${HOME}/.klei/DoNotStarveTogether:/data -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp -it jamesits/dst-server:latest
 ```
 
-If you use `docker-compose`, an example config is provided.
+If you use `docker-compose`, an [example config](docker-compose.yml) is provided.
 
 ### Stop server
 
@@ -67,7 +68,7 @@ docker build . -t dst-server:latest
 ## Known Issues
 
  * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )
- * Docker IPv6 support is another sh*t and we currently don't have any idea on it. Help and advices are always welcomed.
+ * Docker IPv6 support is another sh\*t and we currently don't have any idea on it. Help and advices are always welcomed. (see [#7](https://github.com/Jamesits/docker-dst-server/issues/7).)
 
 ## FAQ
 
@@ -104,6 +105,13 @@ udp        0      0 0.0.0.0:11000           0.0.0.0:*                           
 #### Error! App '343050' state is 0x202 after update job.
 
 Your disk is full.
+
+#### Client high latency or lagging
+
+Possible causes:
+
+* High packet drop rate
+* High server tick rate with low-performance clients (e.g. notebook users with tick rate 60) 
 
 ----------
 
