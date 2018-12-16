@@ -10,6 +10,13 @@ The game updates frequently, so there are daily built images on [Docker Hub](htt
 
 ----------
 
+## Versioning
+
+The server code changes a lot. We offer 2 update channels:
+
+* `jamesits/dst-server:latest` is a less frequently updated image (only updated when Dockerfile changes), and the server will be updated on every launch
+* `jamesits/dst-server:nightly` is a nightly built image, so it (hopefully) comes with the latest server code (we still checks for update on every launch)
+
 ## Running
 
 ### Prerequisites
