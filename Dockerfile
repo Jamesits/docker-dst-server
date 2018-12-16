@@ -7,7 +7,6 @@ ARG STEAMCMD_URL=https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux
 # install packages
 RUN dpkg --add-architecture i386 \
      && apt-get update -y \
-    && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends ca-certificates lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 wget tar supervisor \
     && apt-get autoremove -y \
      && apt-get clean -y \
