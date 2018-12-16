@@ -4,18 +4,16 @@ They write their server setup instructions like sh*t, so we made this Docker ima
 
 Please read the whole document before putting your hands on your server. 
 
-The game updates frequently, so there are daily built images on [Docker Hub](https://hub.docker.com/r/jamesits/dst-server/).
-
 [![Build Status](https://dev.azure.com/nekomimiswitch/General/_apis/build/status/Don't%20Starve%20Together)](https://dev.azure.com/nekomimiswitch/General/_build/latest?definitionId=4)
 
 ----------
 
 ## Versioning
 
-The server code changes a lot. We offer 2 update channels:
+The server code changes a lot. We offer 2 update channels on [Docker Hub](https://hub.docker.com/r/jamesits/dst-server/):
 
-* `jamesits/dst-server:latest` is a less frequently updated image (only updated when Dockerfile changes), and the server will be updated on every launch
-* `jamesits/dst-server:nightly` is a nightly built image, so it (hopefully) comes with the latest server code (we still checks for update on every launch)
+* `jamesits/dst-server:latest` is a less frequently updated image (it is only updated when Dockerfile changes), and the server code will be updated on every launch
+* `jamesits/dst-server:nightly` is a nightly built image, so it (hopefully) comes with the latest server code (the server code will still be updated on every launch)
 
 ## Running
 
