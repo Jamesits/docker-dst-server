@@ -31,10 +31,12 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
     if [ ! -f "/data/DoNotStarveTogether/Cluster_1/cluster_token.txt" ]; then
         >&2 echo "cluster_token.txt not found!"
     else
-        # the cluster_token.txt needs to be terminated without newline, try to fix
-        mv /data/DoNotStarveTogether/Cluster_1/cluster_token.txt /tmp/
-        tr -d '\n' < /tmp/cluster_token.txt > /data/DoNotStarveTogether/Cluster_1/cluster_token.txt
-        rm -f /tmp/cluster_token.txt
+        if [ -z "$(tail -c 1 "/data/DoNotStarveTogether/Cluster_1/cluster_token.txt")" ]; then
+            # the cluster_token.txt needs to be terminated without newline, try to fix
+            mv /data/DoNotStarveTogether/Cluster_1/cluster_token.txt /tmp/
+            tr -d '\n' < /tmp/cluster_token.txt > /data/DoNotStarveTogether/Cluster_1/cluster_token.txt
+            rm -f /tmp/cluster_token.txt
+        fi
     fi
 
     # Update game
