@@ -1,8 +1,12 @@
 // install or update Don't Starve dedicated server
+// we do not validate:
+// It is recommended you use this command only on initial installation and if there are server issues.
+// https://developer.valvesoftware.com/wiki/SteamCMD#Validate
+// also see https://github.com/Jamesits/docker-dst-server/issues/12
 
 @ShutdownOnFailedCommand 1
 @NoPromptForPassword 1
 login anonymous
 force_install_dir /opt/dst_server
-app_update 343050 validate
+app_update 343050
 quit

@@ -1,0 +1,8 @@
+// install or update Don't Starve dedicated server
+
+@ShutdownOnFailedCommand 1
+@NoPromptForPassword 1
+login anonymous
+force_install_dir /opt/dst_server
+app_update 343050 validate
+quit
