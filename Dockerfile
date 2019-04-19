@@ -25,6 +25,7 @@ COPY healthcheck.sh /
 COPY steamcmd /usr/local/bin/
 COPY dontstarve_dedicated_server_nullrenderer /usr/local/bin/
 COPY install_dst_server /opt/steamcmd_scripts/
+COPY install_dst_server_initial /opt/steamcmd_scripts/
 RUN chmod +x /entrypoint.sh /healthcheck.sh /usr/local/bin/steamcmd /usr/local/bin/dontstarve_dedicated_server_nullrenderer
 
 # create data directory
