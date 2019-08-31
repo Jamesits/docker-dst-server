@@ -36,7 +36,7 @@ Start server:
 docker run -v ${HOME}/.klei/DoNotStarveTogether:/data -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp -it jamesits/dst-server:latest
 ```
 
-If you use `docker-compose`, an [example config](docker-compose.yml) is provided.
+If you use `docker-compose`, an [example config](https://github.com/Jamesits/docker-dst-server/blob/master/docker-compose.yml) is provided.
 
 ### Stop server
 
