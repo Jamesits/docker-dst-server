@@ -14,6 +14,7 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
         echo "Creating default server config..."
         cp -r /opt/dst_default_config/* /data
         touch /data/DoNotStarveTogether/Cluster_1/cluster_token.txt
+        chown -R dst:dst /data/*
         echo "Done, please fill in \`DoNotStarveTogether/Cluster_1/cluster_token.txt\` with your cluster token and restart server!"
         exit
     fi
@@ -43,7 +44,7 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
     echo "Updating server..."
     steamcmd +runscript /opt/steamcmd_scripts/install_dst_server
     echo "Updating mods..."
-    dontstarve_dedicated_server_nullrenderer -only_update_server_mods
+    su - dst -c "dontstarve_dedicated_server_nullrenderer -persistent_storage_root /data -only_update_server_mods"
 
     # create unix socks server for supervisor
     touch /var/run/supervisor.sock

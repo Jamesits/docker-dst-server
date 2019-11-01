@@ -12,6 +12,9 @@ RUN dpkg --add-architecture i386 \
      && apt-get clean -y \
      && rm -rf /var/lib/apt/lists/*
 
+# Add unprivileged user
+RUN groupadd dst && useradd -g dst -d /home/dst dst
+
 # install steamcmd
 RUN mkdir -p /opt/steamcmd \
     && wget "${STEAMCMD_URL}" -O /tmp/steamcmd.tar.gz \
@@ -29,9 +32,7 @@ COPY install_dst_server_initial /opt/steamcmd_scripts/
 RUN chmod +x /entrypoint.sh /healthcheck.sh /usr/local/bin/steamcmd /usr/local/bin/dontstarve_dedicated_server_nullrenderer
 
 # create data directory
-# dst server seems to be ignoring `-persistent_storage_root` argument, let's workaround it too
-RUN mkdir -p /data \
-    && ln -s /data ${HOME}/.klei
+RUN mkdir -p /data
 
 # install Don't Starve Together server
 RUN mkdir -p /opt/dst_server \
