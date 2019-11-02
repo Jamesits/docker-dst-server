@@ -54,9 +54,18 @@ Creating default server config...
 Done, please fill in `DoNotStarveTogether/Cluster_1/cluster_token.txt` with your cluster token and restart server!
 ```
 
-Open a genius copy of Don't Starve Together client, log in, click "account" button on the bottom left of the main menu, and generate a new token from the pop-up web page. Then open `your_data_directory/DoNotStarveTogether/Cluster_1/cluster_token.txt` on your server using any text editor, paste the token, save.
+To generate a cluster token (as of 2019-11-02):
 
-Don't forget to edit `your_data_directory/DoNotStarveTogether/Cluster_1/cluster.ini` and get your server an unique name!
+1. Open a genius copy of Don't Starve Together client and log in
+2. Click "Play" to go to the main menu
+3. click "account" button on the bottom left of the main menu
+4. In the popup browser, click "GAMES" on the top nav bar
+5. Click "Don't Starve Toegther Servers" button on the top right
+6. Scroll down to "ADD NEW SERVER" section, fill in a server name (it is not important), and copy the generated token
+
+The token looks like `pds-g^aaaaaaaaa-q^jaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=`. Then open `your_data_directory/DoNotStarveTogether/Cluster_1/cluster_token.txt` on your server using any text editor, paste the token, save.
+
+If you need to add mods, change world generation config, etc., please do it now. Don't forget to edit `your_data_directory/DoNotStarveTogether/Cluster_1/cluster.ini` and get your server an unique name!
 
 After you finish this, re-run start server command, and the server should be running.
 

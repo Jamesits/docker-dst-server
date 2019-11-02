@@ -42,6 +42,8 @@ RUN mkdir -p /opt/dst_server \
 COPY dst_default_config /opt/dst_default_config/
 RUN chown -R dst:dst /opt/dst_default_config
 
+VOLUME [ "/data" ]
+
 EXPOSE 10999-11000/udp 12346-12347/udp
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf", "-n"]
