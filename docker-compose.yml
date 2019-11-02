@@ -10,4 +10,4 @@ services:
         - "12346-12347:12346-12347/udp"
     volumes:
         - ~/.klei/DoNotStarveTogether:/data
-    stop_grace_period: 2m
+    stop_grace_period: 6m
