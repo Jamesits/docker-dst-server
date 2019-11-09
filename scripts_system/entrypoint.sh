@@ -15,8 +15,12 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
         cp -r /opt/dst_default_config/* /data
         touch /data/DoNotStarveTogether/Cluster_1/cluster_token.txt
         chown -R dst:dst /data
-        echo "Done, please fill in \`DoNotStarveTogether/Cluster_1/cluster_token.txt\` with your cluster token and restart server!"
-        exit
+        if [ -z "$CLUSTER_TOKEN" ] ; then
+            echo "Done, please fill in \`DoNotStarveTogether/Cluster_1/cluster_token.txt\` with your cluster token and restart server!"
+            exit
+        else
+            echo $CLUSTER_TOKEN > /data/DoNotStarveTogether/Cluster_1/cluster_token.txt
+        fi
     fi
 
     # override server mods folder with user provided one
@@ -42,6 +46,23 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
 
     # fix permission
     chown -R dst:dst /data
+
+    if [ ! -z "$MOD_LIST" ]; then
+        echo "return {" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
+        IFS=';' read -ra ADDR <<< "$MOD_LIST"
+        first=true
+        for i in "${ADDR[@]}"; do
+            if ! $first ; then
+                echo "," | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
+            fi
+            first=false
+            echo -n "[\"workshop-"$i"\"] = { enabled = true }" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
+
+            echo "ServerModSetup(\""$i"\")" >> /data/DoNotStarveTogether/Cluster_1/mods/dedicated_server_mods_setup.lua
+        done
+        echo "" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
+        echo "}" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
+    fi
 
     # Update game
     echo "Updating server..."
