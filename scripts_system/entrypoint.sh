@@ -48,20 +48,24 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
     chown -R dst:dst /data
 
     if [ ! -z "$MOD_LIST" ]; then
-        echo "return {" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
+        echo "return {" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua 1>/dev/null
         IFS=';' read -ra ADDR <<< "$MOD_LIST"
         first=true
         for i in "${ADDR[@]}"; do
             if ! $first ; then
-                echo "," | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
+                echo "," | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua 1>/dev/null
             fi
             first=false
-            echo -n "[\"workshop-"$i"\"] = { enabled = true }" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
+            echo -n "[\"workshop-"$i"\"] = { enabled = true }" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua 1>/dev/null
 
             echo "ServerModSetup(\""$i"\")" >> /data/DoNotStarveTogether/Cluster_1/mods/dedicated_server_mods_setup.lua
         done
-        echo "" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
-        echo "}" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua
+        echo "" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua 1>/dev/null
+        echo "}" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua 1>/dev/null
+    fi
+
+    if [ ! -z "$PASSWORD" ]; then
+        sed -i "s/cluster_password =/cluster_password = $PASSWORD/" /data/DoNotStarveTogether/Cluster_1/cluster.ini
     fi
 
     # Update game
