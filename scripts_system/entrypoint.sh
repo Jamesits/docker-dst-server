@@ -68,6 +68,22 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
         sed -i "s/cluster_password =/cluster_password = $PASSWORD/" /data/DoNotStarveTogether/Cluster_1/cluster.ini
     fi
 
+    if [ ! -z "$NAME" ]; then
+        sed -i "s/cluster_name = .*/cluster_name = $NAME/" /data/DoNotStarveTogether/Cluster_1/cluster.ini
+    fi
+
+    if [ ! -z "$DESCRIPTION" ]; then
+        sed -i "s/cluster_description = .*/cluster_description = $DESCRIPTION/" /data/DoNotStarveTogether/Cluster_1/cluster.ini
+    fi
+
+    if [ ! -z "$GAME_MODE" ]; then
+        sed -i "s/game_mode = .*/game_mode = $GAME_MODE/" /data/DoNotStarveTogether/Cluster_1/cluster.ini
+    fi
+
+    if [ ! -z "$PVP" ]; then
+        sed -i "s/pvp = .*/pvp = $PVP/" /data/DoNotStarveTogether/Cluster_1/cluster.ini 
+    fi
+
     # Update game
     echo "Updating server..."
     steamcmd +runscript /opt/steamcmd_scripts/install_dst_server
