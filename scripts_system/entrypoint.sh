@@ -48,7 +48,7 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
     chown -R dst:dst /data
 
     if [ ! -z "$MOD_LIST" ]; then
-        echo "return {" | tee -a /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua 1>/dev/null
+        echo "return {" | tee /data/DoNotStarveTogether/Cluster_1/Master/modoverrides.lua /data/DoNotStarveTogether/Cluster_1/Caves/modoverrides.lua 1>/dev/null
         IFS=';' read -ra ADDR <<< "$MOD_LIST"
         first=true
         for i in "${ADDR[@]}"; do
