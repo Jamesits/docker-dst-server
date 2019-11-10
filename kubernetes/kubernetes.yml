@@ -48,7 +48,7 @@ spec:
           value: "survival"
         - name: CLUSTER_INTENTION
           value: "cooperative"
-        image: brunohs/dst-kubernetes:latest
+        image: jamesits/dst-kubernetes:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 10999
