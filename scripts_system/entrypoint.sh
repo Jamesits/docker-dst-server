@@ -65,7 +65,7 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
     fi
 
     if [ ! -z "$PASSWORD" ]; then
-        sed -i "s/cluster_password =/cluster_password = $PASSWORD/" /data/DoNotStarveTogether/Cluster_1/cluster.ini
+        sed -i "s/cluster_password = .*/cluster_password = $PASSWORD/" /data/DoNotStarveTogether/Cluster_1/cluster.ini
     fi
 
     if [ ! -z "$NAME" ]; then
