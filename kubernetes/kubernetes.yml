@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-volume
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dont-starve-together-server
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: dont-starve-together-server
+      app.kubernetes.io/name: dont-starve-together-server
+  replicas: 1
+  revisionHistoryLimit: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 100%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: dont-starve-together-server
+        app.kubernetes.io/name: dont-starve-together-server
+    spec:
+      containers:
+      - name: dont-starve-together-server
+        env:
+        - name: CLUSTER_TOKEN
+          value: "pds-g^aaaaaaaaa-q^jaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa="
+        - name: MOD_LIST #Multiple mods are separeted by a semi-colon(;)
+          value: "123;456" 
+        - name: PASSWORD #Please change, or remove if server is open.
+          value: "123456"
+        - name: NAME
+          value: "Dedicated Dont Starve Together Server"
+        - name: DESCRIPTION
+          value: "A dedicated dont starve together server"
+        - name: GAME_MODE # Available game mods are: [survival, cooperative, endless]
+          value: "survival"
+        - name: CLUSTER_INTENTION
+          value: "cooperative"
+        image: brunohs/dst-kubernetes:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 10999
+          protocol: UDP
+        - containerPort: 11000
+          protocol: UDP
+        - containerPort: 12346
+          protocol: UDP
+        - containerPort: 12347
+          protocol: UDP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 3000M
+          requests:
+            cpu: "1"
+            memory: 3000M
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: data-volume
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 360
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: data-volume
