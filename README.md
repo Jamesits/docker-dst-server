@@ -127,7 +127,22 @@ Possible causes:
 * High packet drop rate
 * High server tick rate with low-performance clients (e.g. notebook users with tick rate 60) 
 
-----------
+#### How can I copy local data to server?
+
+Local data is stored in `<User Documents>\Klei\DoNotStarveTogether\<Random Number>`.
+
+There are two situations:
+1. Local data has cave enabled.\
+Just copy the `Cluster_X` to server and rename to `Cluster_1`, then it should work.
+2. Local data has no cave.\
+Copy everything in `client_save` except `session` and `Cluster_X/save/session` to server `Cluster_1/save`.\
+If your local data is not in slot 1, you also have to modify `saveindex` because the server recognize only the first slot.\
+The server will create a cave for you. If you don't want the cave, you have to modify `supervisor.conf` to disable cave server.
+
+#### How can I enable mods after copy local data to server?
+
+Open `Cluster_X/Master/modoverrides.lua` and you will see something like `workshop-XXXXX` where `XXXXX` is a number.\
+Open `Cluster_1/mods/dedicated_server_mods_setup.lua` on server and write `ServerModSetup("XXXXX")`.
 
 ## Maintainer
 
