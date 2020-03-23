@@ -1,13 +1,12 @@
-version: "3"
 services:
   dst-server:
-    image: jamesits/dst-server:latest
-    deploy:
-        restart_policy:
-            condition: on-failure
-    ports:
+     image: jamesits/dst-server:latest
+     deploy:
+         restart_policy:
+             condition: on-failure
+     ports:
         - "10999-11000:10999-11000/udp"
         - "12346-12347:12346-12347/udp"
-    volumes:
+     volumes:
         - ~/.klei/DoNotStarveTogether:/data
-    stop_grace_period: 6m
+     stop_grace_period: 6m
