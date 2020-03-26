@@ -10,7 +10,7 @@ Please read the whole document before putting your hands on your server.
 
 ## Versioning
 
-The server code changes a lot. We offer 2 update channels on [Docker Hub](https://hub.docker.com/r/jamesits/dst-server/):
+The server code changes a lot. We offer 4 variants on [Docker Hub](https://hub.docker.com/r/jamesits/dst-server/):
 
 * `jamesits/dst-server:latest` is a less frequently updated image (it is only updated when Dockerfile changes), and the server code will be updated on every launch
 * `jamesits/dst-server:nightly` is a nightly built image, so it (hopefully) comes with the latest server code (the server code will still be updated on every launch)
