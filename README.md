@@ -14,6 +14,8 @@ The server code changes a lot. We offer 2 update channels on [Docker Hub](https:
 
 * `jamesits/dst-server:latest` is a less frequently updated image (it is only updated when Dockerfile changes), and the server code will be updated on every launch
 * `jamesits/dst-server:nightly` is a nightly built image, so it (hopefully) comes with the latest server code (the server code will still be updated on every launch)
+* `jamesits/dst-server:steamcmd-rebase` works the same way as `latest` but is based on [`steamcmd/steamcmd:ubuntu`](https://hub.docker.com/r/steamcmd/steamcmd)
+* `jamesits/dst-server:steamcmd-rebase-slim` is the same as `steamcmd-rebase` but have no DST server pre-installed; required files will be downloaded every time the container is launched
 
 ## Running
 
