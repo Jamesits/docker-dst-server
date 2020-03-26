@@ -1,31 +1,24 @@
-FROM debian:buster-slim
+FROM steamcmd/steamcmd:ubuntu
 LABEL maintainer="James Swineson <docker@public.swineson.me>"
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG STEAMCMD_URL=https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
 ARG LANG=C.UTF-8
 ARG LC_ALL=C.UTF-8
 
 # install packages
-RUN dpkg --add-architecture i386 \
-    && apt-get update -y \
-    && apt-get install -y --no-install-recommends ca-certificates lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 wget tar supervisor \
+# why libcurl-gnutls.so.4 in Ubuntu is packages in libcurl3-gnutls
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends libcurl3-gnutls:i386 supervisor \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-    # create data directory
+# create data directory
 RUN mkdir -p /data \
-    # Add unprivileged user
+# Add unprivileged user
     && groupadd dst \
     && useradd -g dst -d /data dst \
     && chown -R dst:dst /data
-
-# install steamcmd
-RUN mkdir -p /opt/steamcmd \
-    && wget "${STEAMCMD_URL}" -O /tmp/steamcmd.tar.gz \
-    && tar -xvzf /tmp/steamcmd.tar.gz -C /opt/steamcmd \
-    && rm -rf /tmp/*
 
 # install helper tools
 COPY supervisor /etc/supervisor/
