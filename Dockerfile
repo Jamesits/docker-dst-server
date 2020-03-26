@@ -28,7 +28,6 @@ RUN chmod +x /usr/local/bin/*
 
 # install Don't Starve Together server
 RUN mkdir -p /opt/dst_server \
-    && steamcmd +runscript /opt/steamcmd_scripts/install_dst_server_initial \
     && rm -rf /root/Steam /root/.steam
 
 # install default config
