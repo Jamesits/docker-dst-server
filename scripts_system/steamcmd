@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eu
+
+exec /home/steam/steamcmd/steamcmd.sh "${@:1}"
