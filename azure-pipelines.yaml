@@ -68,8 +68,8 @@ jobs:
       submodules: true
 
     - bash: |
-        apt-get update -y
-        apt-get install -y shellcheck
+        sudo apt-get update -y
+        sudo apt-get install -y shellcheck
       displayName: "Install build dependencies"
 
     - bash: |
@@ -89,17 +89,17 @@ jobs:
 
     - task: Docker@1
       displayName: "Docker login"
-      condition: ne(variables['Build.Reason'], 'PullRequest')
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: "Docker Hub: Jamesits"
         command: login
 
     - bash: |
-        for tag in ${DOCKER_TAGS}
+        for TAG in ${DOCKER_TAGS}
         do
             docker tag dst ${DOCKER_IMAGE_BASENAME}:${TAG}
             # TODO: actually push the image
         done
       displayName: "Push image"
-      condition: ne(variables['Build.Reason'], 'PullRequest')
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
