@@ -133,7 +133,7 @@ jobs:
 
     - bash: |
         set -Eeuo pipefail
-        if ! $(DOCKER_TAGS); then
+        if [ -z "$(DOCKER_TAGS)" ]; then
             echo "No tags to push"
             exit 0
         fi
