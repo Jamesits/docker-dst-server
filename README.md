@@ -4,18 +4,19 @@ They write their server setup instructions like sh*t, so we made this Docker ima
 
 Please read the whole document before putting your hands on your server. 
 
-[![Build Status](https://dev.azure.com/nekomimiswitch/General/_apis/build/status/Don't%20Starve%20Together)](https://dev.azure.com/nekomimiswitch/General/_build/latest?definitionId=4)
+[![Build Status](https://dev.azure.com/nekomimiswitch/General/_apis/build/status/docker-dst-server?branchName=master)](https://dev.azure.com/nekomimiswitch/General/_build/latest?definitionId=80&branchName=master)
 
 ----------
 
 ## Versioning
 
-The server code changes a lot. We offer 4 variants on [Docker Hub](https://hub.docker.com/r/jamesits/dst-server/):
+The DST server code changes a lot. We offer multiple variants (tags) on [Docker Hub](https://hub.docker.com/r/jamesits/dst-server/):
 
-* `jamesits/dst-server:latest` is a less frequently updated image (it is only updated when Dockerfile changes), and the server code will be updated on every launch
-* `jamesits/dst-server:nightly` is a nightly built image, so it (hopefully) comes with the latest server code (the server code will still be updated on every launch)
-* `jamesits/dst-server:steamcmd-rebase` works the same way as `latest` but is based on [`steamcmd/steamcmd:ubuntu`](https://hub.docker.com/r/steamcmd/steamcmd)
-* `jamesits/dst-server:steamcmd-rebase-slim` is the same as `steamcmd-rebase` but have no DST server pre-installed; required files will be downloaded every time the container is launched
+* `latest` is a less frequently updated image (it is only updated when Dockerfile changes), and the server code will be updated on every launch
+* `nightly` is a nightly built image, so it (hopefully) comes with the latest server code (the server code will still be updated on every launch)
+* `steamcmd-rebase` works the same way as `latest` but is based on [`cm2network/steamcmd:root`](https://hub.docker.com/r/cm2network/steamcmd)
+
+All variants except `nightly` also have a `-slim` tagged version which does not come with DST server pre-installed; required files will be downloaded every time the container is launched.
 
 ## Running
 
