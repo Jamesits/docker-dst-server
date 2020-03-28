@@ -92,7 +92,7 @@ jobs:
       condition: ne(variables['Build.Reason'], 'PullRequest')
       inputs:
         containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: Jamesits
+        dockerRegistryEndpoint: "Docker Hub: Jamesits"
         command: login
 
     - bash: |
