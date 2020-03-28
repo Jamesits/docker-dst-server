@@ -79,11 +79,11 @@ jobs:
 
     - bash: |
         docker build -t dst \
-          --build-arg BASE_IMAGE=cm2network/steamcmd:root \
-          --build-arg STEAMCMD_PATH=/home/steam/steamcmd/steamcmd.sh \
-          --build-arg DST_DOWNLOAD=0 \
-          --build-arg DST_USER=steam \
-          --build-arg DST_GROUP=steam \
+          --build-arg BASE_IMAGE=${BASE_IAMGE} \
+          --build-arg STEAMCMD_PATH=${STEAMCMD_PATH} \
+          --build-arg DST_DOWNLOAD=${DST_DOWNLOAD} \
+          --build-arg DST_USER=${DST_USER} \
+          --build-arg DST_GROUP=${DST_GROUP} \
           .
       displayName: "Build image"
 
