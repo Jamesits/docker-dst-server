@@ -134,11 +134,11 @@ jobs:
     - bash: |
         set -Eeuo pipefail
 
-        if ! $(DOCKER_TAGS); then
+        if [ -z "$(DOCKER_TAGS)" ]; then
           echo "No tags to push"
           exit 0
         fi
-        
+
         IFS=' ' read -ra TAGS <<< "$(DOCKER_TAGS)"
         for TAG in "${TAGS[@]}"; do
           echo "Tagging $(DOCKER_IMAGE_BASENAME):${TAG}"
