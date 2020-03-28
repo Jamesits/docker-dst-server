@@ -1,0 +1,105 @@
+name: $(Date:yyyyMMdd).$(Rev:r)
+variables:
+  DOCKER_IMAGE_BASENAME: "jamesits/dst-server"
+
+trigger:
+  batch: true
+  branches:
+    include: [ "master" ]
+  paths:
+    include: [ "*" ]
+    exclude: [ "README.md" ]
+
+jobs:
+  - job: docker
+    displayName: "docker build"
+    pool:
+      vmImage: "ubuntu-16.04"
+    workspace:
+      clean: all
+    timeoutInMinutes: 120
+
+    strategy:
+      matrix:
+        vanilla_debian_buster:
+          DOCKER_TAGS: 'latest'
+          BASE_IMAGE: 'debian:buster-slim'
+          DST_DOWNLOAD: '1'
+          DST_USER: 'dst'
+          DST_GROUP: 'dst'
+          STEAMCMD_PATH: '/opt/steamcmd/steamcmd.sh'
+        vanilla_debian_buster_slim:
+          DOCKER_TAGS: 'latest-slim'
+          BASE_IMAGE: 'debian:buster-slim'
+          DST_DOWNLOAD: '0'
+          DST_USER: 'dst'
+          DST_GROUP: 'dst'
+          STEAMCMD_PATH: '/opt/steamcmd/steamcmd.sh'
+        cm2network_steamcmd:
+          DOCKER_TAGS: 'steamcmd-rebase'
+          BASE_IMAGE: 'cm2network/steamcmd:root'
+          DST_DOWNLOAD: '1'
+          DST_USER: 'steam'
+          DST_GROUP: 'steam'
+          STEAMCMD_PATH: '/home/steam/steamcmd/steamcmd.sh'
+        cm2network_steamcmd_slim:
+          DOCKER_TAGS: 'steamcmd-rebase-slim'
+          BASE_IMAGE: 'cm2network/steamcmd:root'
+          DST_DOWNLOAD: '0'
+          DST_USER: 'steam'
+          DST_GROUP: 'steam'
+          STEAMCMD_PATH: '/home/steam/steamcmd/steamcmd.sh'
+        steamcmd_steamcmd:
+          BASE_IMAGE: 'steamcmd/steamcmd:ubuntu'
+          DST_DOWNLOAD: '1'
+          DST_USER: 'dst'
+          DST_GROUP: 'dst'
+          STEAMCMD_PATH: '/usr/games/steamcmd'
+        steamcmd_steamcmd_slim:
+          BASE_IAMGE: 'steamcmd/steamcmd:ubuntu'
+          DST_DOWNLOAD: '0'
+          DST_USER: 'dst'
+          DST_GROUP: 'dst'
+          STEAMCMD_PATH: '/usr/games/steamcmd'
+
+    steps:
+    - checkout: self
+      clean: true
+      submoduless: true
+
+    - bash: |
+        apt-get update -y
+        apt-get install -y shellcheck
+      displayName: "Install build dependencies"
+
+    - bash: |
+        shellcheck --check-sourced --external-sources scripts_system/*
+      displayName: "shellcheck"
+      continueOnError: true
+
+    - bash: |
+        docker build -t dst \
+          --build-arg BASE_IMAGE=cm2network/steamcmd:root \
+          --build-arg STEAMCMD_PATH=/home/steam/steamcmd/steamcmd.sh \
+          --build-arg DST_DOWNLOAD=0 \
+          --build-arg DST_USER=steam \
+          --build-arg DST_GROUP=steam \
+          .
+      displayName: "Build image"
+
+    - task: Docker@1
+      displayName: "Docker login"
+      condition: ne(variables['Build.Reason'], 'PullRequest')
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: Jamesits
+        command: login
+
+    - bash: |
+        for tag in ${DOCKER_TAGS}
+        do
+            docker tag dst ${DOCKER_IMAGE_BASENAME}:${TAG}
+            # TODO: actually push the image
+        done
+      displayName: "Push image"
+      condition: ne(variables['Build.Reason'], 'PullRequest')
