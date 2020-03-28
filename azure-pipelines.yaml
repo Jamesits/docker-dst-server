@@ -11,6 +11,29 @@ trigger:
     exclude: [ "README.md" ]
 
 jobs:
+  - job: code_check
+    displayName: "check"
+    pool:
+      vmImage: "ubuntu-16.04"
+    workspace:
+      clean: all
+    timeoutInMinutes: 120
+
+    steps:
+      - checkout: self
+        clean: true
+        submodules: true
+  
+      - bash: |
+          sudo apt-get update -y
+          sudo apt-get install -y shellcheck
+        displayName: "Install build dependencies"
+  
+      - bash: |
+          shellcheck scripts_system/*
+        displayName: "shellcheck"
+        continueOnError: true
+
   - job: docker
     displayName: "docker build"
     pool:
@@ -18,6 +41,7 @@ jobs:
     workspace:
       clean: all
     timeoutInMinutes: 120
+    condition: ne(variables['Build.Reason'], 'PullRequest')
 
     strategy:
       matrix:
@@ -56,7 +80,7 @@ jobs:
           DST_GROUP: 'dst'
           STEAMCMD_PATH: '/usr/games/steamcmd'
         steamcmd_steamcmd_slim:
-          BASE_IAMGE: 'steamcmd/steamcmd:ubuntu'
+          BASE_IMAGE: 'steamcmd/steamcmd:ubuntu'
           DST_DOWNLOAD: '0'
           DST_USER: 'dst'
           DST_GROUP: 'dst'
@@ -66,16 +90,6 @@ jobs:
     - checkout: self
       clean: true
       submodules: true
-
-    - bash: |
-        sudo apt-get update -y
-        sudo apt-get install -y shellcheck
-      displayName: "Install build dependencies"
-
-    - bash: |
-        shellcheck scripts_system/*
-      displayName: "shellcheck"
-      continueOnError: true
 
     - bash: |
         docker build -t dst \
@@ -96,10 +110,19 @@ jobs:
         command: login
 
     - bash: |
-        for TAG in $(DOCKER_TAGS)
+        for TAG in "$(DOCKER_TAGS)"
         do
+            echo "Tagging $(DOCKER_IMAGE_BASENAME):${TAG}"
             docker tag dst $(DOCKER_IMAGE_BASENAME):${TAG}
-            # TODO: actually push the image
+            docker push $(DOCKER_IMAGE_BASENAME):${TAG}
         done
       displayName: "Push image"
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
+    - task: Docker@1
+      displayName: "Docker logout"
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: "Docker Hub: Jamesits"
+        command: logout
