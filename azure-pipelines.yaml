@@ -28,6 +28,7 @@ schedules:
       - master
 
 jobs:
+  # code style check
   - job: code_check
     displayName: "check"
     pool:
@@ -51,6 +52,7 @@ jobs:
         displayName: "shellcheck"
         continueOnError: true
 
+  # different variants
   - job: docker
     displayName: "docker build"
     pool:
@@ -153,6 +155,7 @@ jobs:
         dockerRegistryEndpoint: "Docker Hub: Jamesits"
         command: logout
 
+  # a vanilla image with all default build arguments
   - job: docker_nightly
     displayName: "docker build nightly"
     pool:
@@ -160,7 +163,6 @@ jobs:
     workspace:
       clean: all
     timeoutInMinutes: 15
-    condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
 
     steps:
     - checkout: self
@@ -175,6 +177,7 @@ jobs:
 
     - task: Docker@1
       displayName: "Docker login"
+      condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: "Docker Hub: Jamesits"
@@ -185,9 +188,11 @@ jobs:
         docker tag dst $(DOCKER_IMAGE_BASENAME):nightly
         docker push $(DOCKER_IMAGE_BASENAME):nightly
       displayName: "Push image"
+      condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
 
     - task: Docker@1
       displayName: "Docker logout"
+      condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: "Docker Hub: Jamesits"
