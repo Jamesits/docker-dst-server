@@ -34,7 +34,7 @@ jobs:
       vmImage: "ubuntu-16.04"
     workspace:
       clean: all
-    timeoutInMinutes: 30
+    timeoutInMinutes: 10
 
     steps:
       - checkout: self
@@ -57,7 +57,7 @@ jobs:
       vmImage: "ubuntu-16.04"
     workspace:
       clean: all
-    timeoutInMinutes: 120
+    timeoutInMinutes: 15
     condition: ne(variables['Build.Reason'], 'PullRequest')
 
     strategy:
@@ -159,7 +159,7 @@ jobs:
       vmImage: "ubuntu-16.04"
     workspace:
       clean: all
-    timeoutInMinutes: 30
+    timeoutInMinutes: 15
     condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
 
     steps:
