@@ -4,7 +4,7 @@ LABEL maintainer="James Swineson <docker@public.swineson.me>"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG STEAMCMD_URL=https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
-ARG STEAMCMD_PATH=/usr/local/bin/steamcmd
+ARG STEAMCMD_PATH=/opt/steamcmd/steamcmd.sh
 ARG DST_DOWNLOAD=1
 ARG LANG=C.UTF-8
 ARG LC_ALL=C.UTF-8
