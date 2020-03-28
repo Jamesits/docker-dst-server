@@ -63,7 +63,7 @@ jobs:
     strategy:
       matrix:
         vanilla_debian_buster:
-          DOCKER_TAGS: 'latest'
+          DOCKER_TAGS: 'vanilla'
           BASE_IMAGE: 'debian:buster-slim'
           DST_DOWNLOAD: '1'
           DST_USER: 'dst'

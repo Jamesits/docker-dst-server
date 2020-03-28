@@ -34,7 +34,7 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
 
     # check cluster token
     if [ ! -f "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1/cluster_token.txt" ]; then
-        >&2 echo "Done, please fill in \`DoNotStarveTogether/Cluster_1/cluster_token.txt\` with your cluster token and restart server!"
+        >&2 echo "Please fill in \`DoNotStarveTogether/Cluster_1/cluster_token.txt\` with your cluster token and restart server!"
         exit
     else
         if [ -z "$(tail -c 1 "/data/DoNotStarveTogether/Cluster_1/cluster_token.txt")" ]; then

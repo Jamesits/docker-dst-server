@@ -12,11 +12,13 @@ Please read the whole document before putting your hands on your server.
 
 The DST server code changes a lot. We offer multiple variants (tags) on [Docker Hub](https://hub.docker.com/r/jamesits/dst-server/):
 
-* `latest` is a less frequently updated image (it is only updated when Dockerfile changes), and the server code will be updated on every launch
-* `nightly` is a nightly built image, so it (hopefully) comes with the latest server code (the server code will still be updated on every launch)
+* `latest` or `vanilla` are less frequently updated images, recommended for day-to-day use
+* `nightly` is a nightly built image, so it (hopefully) comes with the latest server code
 * `steamcmd-rebase` works the same way as `latest` but is based on [`cm2network/steamcmd:root`](https://hub.docker.com/r/cm2network/steamcmd)
 
-All variants except `nightly` also have a `-slim` tagged version which does not come with DST server pre-installed; required files will be downloaded every time the container is launched.
+All variants except `nightly` also have a `-slim` tagged version which does not come with DST server pre-installed; required files will be downloaded every time the container is launched. The `-slim` versions cannot be launched offline.
+
+All variants except `latest` is built using Azure DevOps CI. The `latest` variant is built using Docker Hub's autobuild.
 
 ## Running
 
@@ -54,7 +56,7 @@ Note: the server may take up to ~5min to save map and fully shut down.
 If you don't already have a set of server config in your data directory, we will generate one for you. Start server once using the command above, and you will see:
 ```
 Creating default server config...
-Done, please fill in `DoNotStarveTogether/Cluster_1/cluster_token.txt` with your cluster token and restart server!
+Please fill in `DoNotStarveTogether/Cluster_1/cluster_token.txt` with your cluster token and restart server!
 ```
 
 To generate a cluster token (as of 2019-11-02):
@@ -66,7 +68,7 @@ To generate a cluster token (as of 2019-11-02):
 5. Click "Don't Starve Toegther Servers" button on the top right
 6. Scroll down to "ADD NEW SERVER" section, fill in a server name (it is not important), and copy the generated token
 
-The token looks like `pds-g^aaaaaaaaa-q^jaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=`. Then open `your_data_directory/DoNotStarveTogether/Cluster_1/cluster_token.txt` on your server using any text editor, paste the token, save.
+The token looks like `pds-g^aaaaaaaaa-q^jaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=`. Then either set `DST_CLUSTER_TOKEN` environment variable during `docker run`, or paste the token into `your_data_directory/DoNotStarveTogether/Cluster_1/cluster_token.txt`.
 
 If you need to add mods, change world generation config, etc., please do it now. Don't forget to edit `your_data_directory/DoNotStarveTogether/Cluster_1/cluster.ini` and get your server an unique name!
 
@@ -122,6 +124,10 @@ udp        0      0 0.0.0.0:11000           0.0.0.0:*                           
 #### Error! App '343050' state is 0x202 after update job.
 
 Your disk is full.
+
+#### Error! App '343050' state is 0x602 after update job.
+
+Usually there is a file system permission issue preventing steamcmd from writing to your game installation directory.
 
 #### Client high latency or lagging
 
