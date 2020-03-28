@@ -72,7 +72,7 @@ jobs:
           DST_GROUP: 'dst'
           STEAMCMD_PATH: '/opt/steamcmd/steamcmd.sh'
         vanilla_debian_buster_slim:
-          DOCKER_TAGS: 'latest-slim'
+          DOCKER_TAGS: 'latest-slim vanilla-slim'
           BASE_IMAGE: 'debian:buster-slim'
           DST_DOWNLOAD: '0'
           DST_USER: 'dst'
