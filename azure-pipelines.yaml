@@ -65,7 +65,7 @@ jobs:
     steps:
     - checkout: self
       clean: true
-      submoduless: true
+      submodules: true
 
     - bash: |
         apt-get update -y
