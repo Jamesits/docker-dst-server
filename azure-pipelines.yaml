@@ -133,16 +133,11 @@ jobs:
 
     - bash: |
         set -Eeuo pipefail
-        if [ -z "$(DOCKER_TAGS)" ]; then
-            echo "No tags to push"
-            exit 0
-        fi
-
-        for TAG in "$(DOCKER_TAGS)"
-        do
-            echo "Tagging $(DOCKER_IMAGE_BASENAME):${TAG}"
-            docker tag dst $(DOCKER_IMAGE_BASENAME):${TAG}
-            docker push $(DOCKER_IMAGE_BASENAME):${TAG}
+        IFS=' ' read -ra TAGS <<< "$(DOCKER_TAGS)"
+        for TAG in "${TAGS[@]}"; do
+          echo "Tagging $(DOCKER_IMAGE_BASENAME):${TAG}"
+          docker tag dst $(DOCKER_IMAGE_BASENAME):${TAG}
+          docker push $(DOCKER_IMAGE_BASENAME):${TAG}
         done
       displayName: "Push image"
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
