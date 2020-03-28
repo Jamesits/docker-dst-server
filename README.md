@@ -61,7 +61,7 @@ Please fill in `DoNotStarveTogether/Cluster_1/cluster_token.txt` with your clust
 
 To generate a cluster token (as of 2019-11-02):
 
-1. Open a genius copy of Don't Starve Together client and log in
+1. Open a genuine copy of Don't Starve Together client and log in
 2. Click "Play" to go to the main menu
 3. click "account" button on the bottom left of the main menu
 4. In the popup browser, click "GAMES" on the top nav bar
@@ -165,10 +165,10 @@ Open `Cluster_1/mods/dedicated_server_mods_setup.lua` on server and write `Serve
 ## Maintainer
 
  * [James Swineson](https://swineson.me)
- * [Mingye Wang](https://github.com/Arthur2e5)
  
 ## Thanks
 
+ * [Mingye Wang](https://github.com/Arthur2e5)
  * [@MephistoMMM](https://github.com/MephistoMMM)
  * [@m13253](https://github.com/m13253)
  * [@wph95](https://github.com/wph95)
