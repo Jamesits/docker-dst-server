@@ -10,6 +10,23 @@ trigger:
     include: [ "*" ]
     exclude: [ "README.md" ]
 
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - README.md
+    
+schedules:
+  - cron: "0 3 * * *"
+    displayName: nightly build
+    always: true
+    branches:
+      include:
+      - master
+
 jobs:
   - job: code_check
     displayName: "check"
@@ -17,7 +34,7 @@ jobs:
       vmImage: "ubuntu-16.04"
     workspace:
       clean: all
-    timeoutInMinutes: 120
+    timeoutInMinutes: 30
 
     steps:
       - checkout: self
@@ -92,6 +109,7 @@ jobs:
       submodules: true
 
     - bash: |
+        set -Eeuo pipefail
         docker build -t dst \
           --build-arg BASE_IMAGE=$(BASE_IMAGE) \
           --build-arg STEAMCMD_PATH=$(STEAMCMD_PATH) \
@@ -99,6 +117,8 @@ jobs:
           --build-arg DST_USER=$(DST_USER) \
           --build-arg DST_GROUP=$(DST_GROUP) \
           .
+
+        docker images --digests dst
       displayName: "Build image"
 
     - task: Docker@1
@@ -110,6 +130,12 @@ jobs:
         command: login
 
     - bash: |
+        set -Eeuo pipefail
+        if ! $(DOCKER_TAGS); then
+            echo "No tags to push"
+            exit 0
+        fi
+
         for TAG in "$(DOCKER_TAGS)"
         do
             echo "Tagging $(DOCKER_IMAGE_BASENAME):${TAG}"
@@ -122,6 +148,46 @@ jobs:
     - task: Docker@1
       displayName: "Docker logout"
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: "Docker Hub: Jamesits"
+        command: logout
+
+  - job: docker_nightly
+    displayName: "docker build (nightly)"
+    pool:
+      vmImage: "ubuntu-16.04"
+    workspace:
+      clean: all
+    timeoutInMinutes: 30
+    condition: and(ne(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
+
+    steps:
+    - checkout: self
+      clean: true
+      submodules: true
+
+    - bash: |
+        set -Eeuo pipefail
+        docker build -t dst .
+        docker images --digests dst
+      displayName: "Build image"
+
+    - task: Docker@1
+      displayName: "Docker login"
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: "Docker Hub: Jamesits"
+        command: login
+
+    - bash: |
+        set -Eeuo pipefail
+        docker tag dst $(DOCKER_IMAGE_BASENAME):nightly
+        docker push $(DOCKER_IMAGE_BASENAME):nightly
+      displayName: "Push image"
+
+    - task: Docker@1
+      displayName: "Docker logout"
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: "Docker Hub: Jamesits"
