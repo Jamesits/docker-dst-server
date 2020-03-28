@@ -73,13 +73,13 @@ jobs:
       displayName: "Install build dependencies"
 
     - bash: |
-        shellcheck --check-sourced --external-sources scripts_system/*
+        shellcheck scripts_system/*
       displayName: "shellcheck"
       continueOnError: true
 
     - bash: |
         docker build -t dst \
-          --build-arg BASE_IMAGE=$(BASE_IAMGE) \
+          --build-arg BASE_IMAGE=$(BASE_IMAGE) \
           --build-arg STEAMCMD_PATH=$(STEAMCMD_PATH) \
           --build-arg DST_DOWNLOAD=$(DST_DOWNLOAD) \
           --build-arg DST_USER=$(DST_USER) \
