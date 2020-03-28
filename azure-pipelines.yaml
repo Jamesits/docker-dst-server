@@ -79,11 +79,11 @@ jobs:
 
     - bash: |
         docker build -t dst \
-          --build-arg BASE_IMAGE=${BASE_IAMGE} \
-          --build-arg STEAMCMD_PATH=${STEAMCMD_PATH} \
-          --build-arg DST_DOWNLOAD=${DST_DOWNLOAD} \
-          --build-arg DST_USER=${DST_USER} \
-          --build-arg DST_GROUP=${DST_GROUP} \
+          --build-arg BASE_IMAGE=$(BASE_IAMGE) \
+          --build-arg STEAMCMD_PATH=$(STEAMCMD_PATH) \
+          --build-arg DST_DOWNLOAD=$(DST_DOWNLOAD) \
+          --build-arg DST_USER=$(DST_USER) \
+          --build-arg DST_GROUP=$(DST_GROUP) \
           .
       displayName: "Build image"
 
@@ -96,9 +96,9 @@ jobs:
         command: login
 
     - bash: |
-        for TAG in ${DOCKER_TAGS}
+        for TAG in $(DOCKER_TAGS)
         do
-            docker tag dst ${DOCKER_IMAGE_BASENAME}:${TAG}
+            docker tag dst $(DOCKER_IMAGE_BASENAME):${TAG}
             # TODO: actually push the image
         done
       displayName: "Push image"
