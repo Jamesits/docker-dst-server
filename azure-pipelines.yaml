@@ -154,7 +154,7 @@ jobs:
         command: logout
 
   - job: docker_nightly
-    displayName: "docker build (nightly)"
+    displayName: "docker build nightly"
     pool:
       vmImage: "ubuntu-16.04"
     workspace:

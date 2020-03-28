@@ -84,6 +84,15 @@ cd docker-dst-server
 docker build . -t dst-server:latest
 ```
 
+There are some arguments you can set via `--build-arg`:
+
+* `BASE_IMAGE`: the `FROM` image (recent Debian or Ubuntu based images are supported)
+* `STEAMCMD_PATH`: where is `steamcmd.sh` in the base image
+* `DST_DOWNLOAD`: set to `1` to embed DST server into the image
+* `DST_USER`: the user to run server as (inside container)
+* `DST_GROUP`: the group to run server as (inside container)
+
+
 ## Known Issues
 
  * On Docker environment which doesn't support UDP port forwarding, LAN only server cannot be used. (Still you can enable Steam punchthrough and search for your server in `Online` catalog. )

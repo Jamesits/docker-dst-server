@@ -44,8 +44,9 @@ COPY scripts_steam /opt/steamcmd_scripts/
 RUN chmod +x /usr/local/bin/*
 
 # install Don't Starve Together server
-RUN mkdir -p /opt/dst_server && chmod a+rw /opt/dst_server \
-    && ( test "${DST_DOWNLOAD}" = "1" && steamcmd +runscript /opt/steamcmd_scripts/install_dst_server_initial || true ) \
+RUN mkdir -p /opt/dst_server \
+    && chown -R "${DST_USER}:${DST_GROUP}" /opt/dst_server \
+    && ( test "${DST_DOWNLOAD}" = "1" && steamcmd +runscript /opt/steamcmd_scripts/install_dst_server_initial || echo "Skipping DST server download" ) \
     && rm -rf /root/Steam /root/.steam
 
 # install default config
