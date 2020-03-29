@@ -43,8 +43,6 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" ] || [ "$1" == "supervis
     # note that the update process modifies (resets) the mods folder so we symlink that later
     echo "Updating server..."
     steamcmd +runscript /opt/steamcmd_scripts/install_dst_server
-    echo "Updating mods..."
-    su --login --group "${DST_GROUP}" -c "dontstarve_dedicated_server_nullrenderer -persistent_storage_root \"${DST_USER_DATA_PATH}\" -only_update_server_mods" "${DST_USER}"
 
     # if there are no mods config, use the one that comes with the server
     if [ ! -d "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1/mods" ]; then
@@ -56,6 +54,10 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" ] || [ "$1" == "supervis
     # override server mods folder with user provided one
     rm -rf /opt/dst_server/mods
     ln -s "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1/mods" /opt/dst_server/mods
+
+    # update mods
+    echo "Updating mods..."
+    su --login --group "${DST_GROUP}" -c "dontstarve_dedicated_server_nullrenderer -persistent_storage_root \"${DST_USER_DATA_PATH}\" -only_update_server_mods" "${DST_USER}"
 
     # create unix socks server for supervisor
     touch /var/run/supervisor.sock
