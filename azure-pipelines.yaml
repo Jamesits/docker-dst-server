@@ -32,10 +32,11 @@ jobs:
   - job: code_check
     displayName: "check"
     pool:
-      vmImage: "ubuntu-16.04"
+      vmImage: "ubuntu-latest"
     workspace:
       clean: all
     timeoutInMinutes: 10
+    condition: ne(variables['Build.Reason'], 'Schedule')
 
     steps:
       - checkout: self
@@ -56,11 +57,11 @@ jobs:
   - job: docker
     displayName: "docker build"
     pool:
-      vmImage: "ubuntu-16.04"
+      vmImage: "ubuntu-latest"
     workspace:
       clean: all
     timeoutInMinutes: 15
-    condition: ne(variables['Build.Reason'], 'PullRequest')
+    condition: ne(variables['Build.Reason'], 'Schedule')
 
     strategy:
       matrix:
@@ -125,7 +126,7 @@ jobs:
 
     - task: Docker@1
       displayName: "Docker login"
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: "Docker Hub: Jamesits"
@@ -146,11 +147,11 @@ jobs:
           docker push $(DOCKER_IMAGE_BASENAME):${TAG}
         done
       displayName: "Push image"
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
 
     - task: Docker@1
       displayName: "Docker logout"
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: "Docker Hub: Jamesits"
@@ -160,10 +161,10 @@ jobs:
   - job: docker_nightly
     displayName: "docker build nightly"
     pool:
-      vmImage: "ubuntu-16.04"
+      vmImage: "ubuntu-latest"
     workspace:
       clean: all
-    timeoutInMinutes: 15
+    timeoutInMinutes: 20
 
     steps:
     - checkout: self
@@ -178,7 +179,7 @@ jobs:
 
     - task: Docker@1
       displayName: "Docker login"
-      condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: "Docker Hub: Jamesits"
@@ -189,11 +190,11 @@ jobs:
         docker tag dst $(DOCKER_IMAGE_BASENAME):nightly
         docker push $(DOCKER_IMAGE_BASENAME):nightly
       displayName: "Push image"
-      condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
 
     - task: Docker@1
       displayName: "Docker logout"
-      condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: "Docker Hub: Jamesits"
