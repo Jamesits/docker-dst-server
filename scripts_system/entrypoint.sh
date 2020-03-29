@@ -17,15 +17,6 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
         touch "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1/cluster_token.txt"
     fi
 
-    # override server mods folder with user provided one
-    if [ ! -d "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1/mods" ]; then
-        echo "Creating default mod config..."
-        mkdir -p "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1"
-        cp -r /opt/dst_server/mods "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1"
-    fi
-    rm -rf /opt/dst_server/mods
-    ln -s "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1/mods" /opt/dst_server/mods
-
     # fill cluster token from environment variable
     if [ ! -z "${DST_CLUSTER_TOKEN:-}" ]; then
 	echo "Filling cluster token from environment variable"
@@ -49,10 +40,22 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord"
     chown -R "${DST_USER}:${DST_GROUP}" "${DST_USER_DATA_PATH}"
 
     # Update game
+    # note that the update process modifies (resets) the mods folder so we symlink that later
     echo "Updating server..."
     steamcmd +runscript /opt/steamcmd_scripts/install_dst_server
     echo "Updating mods..."
     su --login --group "${DST_GROUP}" -c "dontstarve_dedicated_server_nullrenderer -persistent_storage_root \"${DST_USER_DATA_PATH}\" -only_update_server_mods" "${DST_USER}"
+
+    # if there are no mods config, use the one that comes with the server
+    if [ ! -d "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1/mods" ]; then
+        echo "Creating default mod config..."
+        mkdir -p "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1"
+        cp -r /opt/dst_server/mods "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1"
+    fi
+
+    # override server mods folder with user provided one
+    rm -rf /opt/dst_server/mods
+    ln -s "${DST_USER_DATA_PATH}/DoNotStarveTogether/Cluster_1/mods" /opt/dst_server/mods
 
     # create unix socks server for supervisor
     touch /var/run/supervisor.sock
