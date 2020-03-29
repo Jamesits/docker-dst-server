@@ -8,7 +8,7 @@ on_error() {
 }
 trap 'on_error ${LINENO} $?' ERR 2>/dev/null || true # some shells don't have ERR trap.
 
-if [ "$1" == "dontstarve_dedicated_server_nullrenderer" -o "$1" == "supervisord" ]; then
+if [ "$1" == "dontstarve_dedicated_server_nullrenderer" ] || [ "$1" == "supervisord" ]; then
     # create default server config if there is none
     if [ ! -d "${DST_USER_DATA_PATH}/DoNotStarveTogether" ]; then
         echo "Creating default server config..."
