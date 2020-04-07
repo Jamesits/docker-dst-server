@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: dst-server
+  name: dst-server
+spec:
+  ports:
+  - name: "10999"
+    port: 10999
+    protocol: UDP
+    targetPort: 10999
+  - name: "11000"
+    port: 11000
+    protocol: UDP
+    targetPort: 11000
+  - name: "12346"
+    port: 12346
+    protocol: UDP
+    targetPort: 12346
+  - name: "12347"
+    port: 12347
+    protocol: UDP
+    targetPort: 12347
+  selector:
+    io.kompose.service: dst-server
+status:
+  loadBalancer: {}
