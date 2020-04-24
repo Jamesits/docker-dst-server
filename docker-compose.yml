@@ -1,9 +1,8 @@
+version: '3.5'
 services:
   dst-server:
      image: jamesits/dst-server:latest
-     deploy:
-         restart_policy:
-             condition: on-failure
+     restart: "on-failure:5"
      ports:
         - "10999-11000:10999-11000/udp"
         - "12346-12347:12346-12347/udp"
