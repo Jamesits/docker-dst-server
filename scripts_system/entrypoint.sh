@@ -59,6 +59,9 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" ] || [ "$1" == "supervis
     echo "Updating mods..."
     su --login --group "${DST_GROUP}" -c "dontstarve_dedicated_server_nullrenderer -persistent_storage_root \"${DST_USER_DATA_PATH}\" -only_update_server_mods" "${DST_USER}"
 
+    # remove any preexistent supervisor socket 
+    rm /var/run/supervisor.sock
+    
     # create unix socks server for supervisor
     touch /var/run/supervisor.sock
 fi
