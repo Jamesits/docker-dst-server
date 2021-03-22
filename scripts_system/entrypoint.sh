@@ -42,7 +42,7 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" ] || [ "$1" == "supervis
 
     # fix config file permission
     chown -R "${DST_USER}:${DST_GROUP}" "${DST_USER_DATA_PATH}"
-    
+
     # protect our mods dir
     # if the mods dir is already a symlink, then we temporary remove it to protect it, so that it survives a container restart
     if [[ -L "${DIR_MODS_SYS}" ]]; then
@@ -68,11 +68,11 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" ] || [ "$1" == "supervis
 
     # update mods
     echo "Updating mods..."
-    su --login --group "${DST_GROUP}" -c "dontstarve_dedicated_server_nullrenderer -persistent_storage_root \"${DST_USER_DATA_PATH}\" -only_update_server_mods" "${DST_USER}"
+    su --login --group "${DST_GROUP}" -c "dontstarve_dedicated_server_nullrenderer -persistent_storage_root \"${DST_USER_DATA_PATH}\" -ugc_directory \"${DST_USER_DATA_PATH}\"/ugc -only_update_server_mods" "${DST_USER}"
 
     # remove any existing supervisor socket
     rm -f /var/run/supervisor.sock
-    
+
     # create the unix socket file for supervisor
     touch /var/run/supervisor.sock
 fi
