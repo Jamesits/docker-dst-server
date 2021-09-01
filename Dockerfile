@@ -62,5 +62,5 @@ VOLUME [ "${DST_USER_DATA_PATH}" ]
 
 EXPOSE 10999-11000/udp 12346-12347/udp
 ENTRYPOINT [ "entrypoint.sh" ]
-CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf", "-n"]
+CMD ["supervisord", "-c", "/data/supervisor/supervisor.conf", "-n"]
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 CMD [ "healthcheck.sh" ]
