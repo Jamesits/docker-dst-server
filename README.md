@@ -18,8 +18,6 @@ The DST server code changes a lot. We offer multiple variants (tags) on [Docker 
 
 All variants except `nightly` also have a `-slim` tagged version which does not come with DST server pre-installed; required files will be downloaded every time the container is launched. The `-slim` versions cannot be launched offline.
 
-All variants except `latest` is built using Azure DevOps CI. The `latest` variant is built using Docker Hub's autobuild.
-
 ## Running
 
 ### Prerequisites
