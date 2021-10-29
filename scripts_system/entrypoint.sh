@@ -22,7 +22,7 @@ if [ "$1" == "dontstarve_dedicated_server_nullrenderer" ] || [ "$1" == "supervis
     fi
 
     # fill cluster token from environment variable
-    if [ ! -z "${DST_CLUSTER_TOKEN:-}" ]; then
+    if [ -n "${DST_CLUSTER_TOKEN:-}" ]; then
 	echo "Filling cluster token from environment variable"
 	printf "%s" "${DST_CLUSTER_TOKEN}" > "${FILE_CLUSTER_TOKEN}"
     fi

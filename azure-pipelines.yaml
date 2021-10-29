@@ -60,7 +60,7 @@ jobs:
       vmImage: "ubuntu-latest"
     workspace:
       clean: all
-    timeoutInMinutes: 20
+    timeoutInMinutes: 40
     condition: ne(variables['Build.Reason'], 'Schedule')
 
     strategy:
@@ -164,7 +164,7 @@ jobs:
       vmImage: "ubuntu-latest"
     workspace:
       clean: all
-    timeoutInMinutes: 20
+    timeoutInMinutes: 40
 
     steps:
     - checkout: self
