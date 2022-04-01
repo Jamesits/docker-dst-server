@@ -6,7 +6,7 @@
 
 @ShutdownOnFailedCommand 1
 @NoPromptForPassword 1
-login anonymous
 force_install_dir /opt/dst_server
+login anonymous
 app_update 343050
 quit
