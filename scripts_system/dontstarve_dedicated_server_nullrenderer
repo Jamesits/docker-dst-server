@@ -1,5 +1,15 @@
 #!/bin/bash
 set -eu
 
-cd /opt/dst_server/bin
-exec ./dontstarve_dedicated_server_nullrenderer "${@:1}"
+DST_SERVER_ARCH="${DST_SERVER_ARCH:-x86}"
+
+if [ "${DST_SERVER_ARCH}" == "x86" ]; then
+    cd /opt/dst_server/bin
+    exec ./dontstarve_dedicated_server_nullrenderer "${@:1}"
+elif [ "${DST_SERVER_ARCH}" == "amd64" ]; then
+    cd /opt/dst_server/bin64
+    exec ./dontstarve_dedicated_server_nullrenderer_x64 "${@:1}"
+else
+    >&2 echo "unknown architecture: ${DST_SERVER_ARCH}"
+    exit -1
+fi
