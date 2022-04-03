@@ -79,6 +79,12 @@ jobs:
           DST_USER: 'dst'
           DST_GROUP: 'dst'
           STEAMCMD_PATH: '/opt/steamcmd/steamcmd.sh'
+        vanilla_debian_bullseye_slim: # experimental
+          BASE_IMAGE: 'debian:bullseye-slim'
+          DST_DOWNLOAD: '0'
+          DST_USER: 'dst'
+          DST_GROUP: 'dst'
+          STEAMCMD_PATH: '/opt/steamcmd/steamcmd.sh'
         cm2network_steamcmd:
           DOCKER_TAGS: 'steamcmd-rebase'
           BASE_IMAGE: 'cm2network/steamcmd:root'
@@ -93,13 +99,13 @@ jobs:
           DST_USER: 'steam'
           DST_GROUP: 'steam'
           STEAMCMD_PATH: '/home/steam/steamcmd/steamcmd.sh'
-        steamcmd_steamcmd:
+        steamcmd_steamcmd: # verification only
           BASE_IMAGE: 'steamcmd/steamcmd:ubuntu'
           DST_DOWNLOAD: '1'
           DST_USER: 'dst'
           DST_GROUP: 'dst'
           STEAMCMD_PATH: '/usr/games/steamcmd'
-        steamcmd_steamcmd_slim:
+        steamcmd_steamcmd_slim: # verification only
           BASE_IMAGE: 'steamcmd/steamcmd:ubuntu'
           DST_DOWNLOAD: '0'
           DST_USER: 'dst'
