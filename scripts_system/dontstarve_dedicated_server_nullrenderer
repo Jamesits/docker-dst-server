@@ -11,5 +11,5 @@ elif [ "${DST_SERVER_ARCH}" == "amd64" ]; then
     exec ./dontstarve_dedicated_server_nullrenderer_x64 "${@:1}"
 else
     >&2 echo "unknown architecture: ${DST_SERVER_ARCH}"
-    exit -1
+    exit 255
 fi
