@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: dst-server
+  name: dst-server
+spec:
+  containers:
+  - image: jamesits/dst-server:vanilla-slim
+    name: dst-server
+    env:
+    - name: DST_CLUSTER_TOKEN
+      value: ""
+    ports:
+    - containerPort: 10999
+      protocol: UDP
+    - containerPort: 11000
+      protocol: UDP
+    - containerPort: 12346
+      protocol: UDP
+    - containerPort: 12347
+      protocol: UDP
+    resources: {}
+    volumeMounts:
+    - mountPath: /data
+      name: dst-server-claim0
+  restartPolicy: OnFailure
+  volumes:
+  - name: dst-server-claim0
+    persistentVolumeClaim:
+      claimName: dst-server-claim0
+status: {}
