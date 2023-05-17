@@ -160,6 +160,25 @@ The server will create a cave for you. If you don't want the cave, you have to m
 Open `Cluster_X/Master/modoverrides.lua` and you will see something like `workshop-XXXXX` where `XXXXX` is a number.\
 Open `Cluster_1/mods/dedicated_server_mods_setup.lua` on server and write `ServerModSetup("XXXXX")`.
 
+
+#### My server goes up with no Caves
+Verify the content of `Cluster_1/Caves/server.ini` and `Cluster_1/Master/server.ini`.
+If they are different from [this](https://github.com/renie/docker-dst-server/blob/master/dst_default_config/DoNotStarveTogether/Cluster_1/Caves/server.ini) and [this](https://github.com/renie/docker-dst-server/blob/master/dst_default_config/DoNotStarveTogether/Cluster_1/Master/server.ini) files respectively, replace the content of your files by the ones from this repo.
+
+#### My Caves are loading as another Forest
+Try using the settings file of a regular server on your host this way:
+
+- Host server within the game itself (not a dedicated one)
+- Add caves and do anything else you might want in the world generation
+- Let the game generate the world for you
+- When you get to the screen to choose a character, close the game
+- Go to the DST folder of the regular game `Klei\DoNotStarveTogether`
+- Find the game you have just created
+  - To do this, open your clusters folders and check the `cluster.ini` files until you find a server with the name of the server you have just created
+- Open the `Caves` folder
+- Copy the file `leveldataoverride.lua` to your dedicated server under `Cluster_1/Caves`
+
+
 ## Maintainer
 
  * [James Swineson](https://swineson.me)
